@@ -2,9 +2,14 @@ const express = require('express');
 const morgan = require('morgan');
 const app = express();
 const tourRouter = require('./routes/ToursRoutes');
+const userRouter = require('./routes/UsersRoutes');
+// Middleware
 app.use(express.json());
 app.use(morgan('dev'));
 app.use('/api/v1/tours', tourRouter); //the router is mounting on the url
+app.use('/api/v1/users', userRouter);
+
+module.exports = app;
 // route handler
 // const getAlltours = (req, res) => {
 //   res.status(200).json({
@@ -69,7 +74,7 @@ app.use('/api/v1/tours', tourRouter); //the router is mounting on the url
 
 // tourRouter.route('/:id').get(getUserById).patch().delete(deleteUserById);
 
-const port = 3000;
-app.listen(port, () => {
-  console.log(`server is running on ${port} `);
-});
+// const port = 3000;
+// app.listen(port, () => {
+//   console.log(`server is running on ${port} `);
+// });
