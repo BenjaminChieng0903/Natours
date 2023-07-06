@@ -1,3 +1,22 @@
+const AppError = require('../utils/appError');
+
+const nonOperationalTemplate = (error, res) => {
+  res.status(error.statusCode).json({
+    status: error.status,
+    statusCode: error.statusCode,
+    message: error.message,
+    error,
+  });
+};
+const castError = (err) => {
+  return new AppError(`Invalid ID ${err.stringValue}`, 400);
+};
+const duplicateFields = (err) => {
+  return new AppError(
+    `fields "${Object.keys(err.keyValue)[0]}" with duplicate value`,
+    400
+  );
+};
 exports.globalErrorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
@@ -23,16 +42,20 @@ exports.globalErrorHandler = (err, req, res, next) => {
     else {
       //Handle invalid ID, that is castError
       if (err.name === 'CastError') {
-        res.status(500).json({
-          status: err.status,
-          statusCode: err.statusCode,
-          message: `Invalid ID ${err.stringValue}`,
-        });
+        const error = castError(err);
+        nonOperationalTemplate(error, res);
       }
-      res.status(500).json({
+      //Handle duplicate fields
+      if (err.code && err.code === 11000) {
+        const error = duplicateFields(err);
+        nonOperationalTemplate(error, res);
+      }
+      //Default: 500 Internal error
+      res.status(err.statusCode).json({
         status: err.status,
         statusCode: err.statusCode,
         message: 'something went wrong!',
+        err,
       });
     }
   }

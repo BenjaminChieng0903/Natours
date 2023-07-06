@@ -9,6 +9,9 @@ const catchAsync = (fn) => {
 
 exports.createNewTour = catchAsync(async (req, res) => {
   const newTour = await Tour.create(req.body);
+  if (!newTour) {
+    return next();
+  }
   res.status(201).json({
     status: 'success',
     data: {
