@@ -16,62 +16,54 @@ exports.createNewTour = catchAsync(async (req, res) => {
     },
   });
 });
-exports.getAlltours = async (req, res) => {
-  try {
-    // console.log(req.query);
-    //query filter
-    let queryItems = { ...req.query };
-    console.log(queryItems);
-    const excludeFields = ['page', 'sort', 'limit', 'fields'];
-    excludeFields.forEach((el) => delete queryItems[el]);
-    console.log(queryItems);
-    //json to string
-    let queryString = JSON.stringify(queryItems);
-    queryString = queryString.replace(
-      /\b(gte|gt|lte|lt)\b/g,
-      (match) => `$${match}`
-    );
+exports.getAlltours = catchAsync(async (req, res) => {
+  // console.log(req.query);
+  //query filter
+  let queryItems = { ...req.query };
+  console.log(queryItems);
+  const excludeFields = ['page', 'sort', 'limit', 'fields'];
+  excludeFields.forEach((el) => delete queryItems[el]);
+  console.log(queryItems);
+  //json to string
+  let queryString = JSON.stringify(queryItems);
+  queryString = queryString.replace(
+    /\b(gte|gt|lte|lt)\b/g,
+    (match) => `$${match}`
+  );
 
-    //string to json
-    queryItems = JSON.parse(queryString);
-    console.log(queryItems);
+  //string to json
+  queryItems = JSON.parse(queryString);
+  console.log(queryItems);
 
-    let tours = Tour.find(queryItems);
-    // sorting
-    if (req.query.sort) {
-      //   tours = Tour.sort(queryItem);
-      const reqSort = req.query.sort.split(',').join(' ');
-      tours = tours.sort(reqSort);
-    } else {
-      tours = tours.sort('CreateAt');
-    }
-    //limit
-    if (req.query.limit) {
-      tours = tours.limit(+req.query.limit);
-      if (req.query.page) {
-        const page = req.query.page - 1;
-        const limit = +req.query.limit;
-        const skip = page * limit;
-        tours = tours.skip(skip).limit(limit);
-      }
-    }
-
-    const result = await tours;
-
-    res.status(200).json({
-      status: 'success',
-      results: result.length,
-      date: new Date(),
-      data: result,
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      date: new Date(),
-      message: err,
-    });
+  let tours = Tour.find(queryItems);
+  // sorting
+  if (req.query.sort) {
+    //   tours = Tour.sort(queryItem);
+    const reqSort = req.query.sort.split(',').join(' ');
+    tours = tours.sort(reqSort);
+  } else {
+    tours = tours.sort('CreateAt');
   }
-};
+  //limit
+  if (req.query.limit) {
+    tours = tours.limit(+req.query.limit);
+    if (req.query.page) {
+      const page = req.query.page - 1;
+      const limit = +req.query.limit;
+      const skip = page * limit;
+      tours = tours.skip(skip).limit(limit);
+    }
+  }
+
+  const result = await tours;
+
+  res.status(200).json({
+    status: 'success',
+    results: result.length,
+    date: new Date(),
+    data: result,
+  });
+});
 
 exports.getTourById = catchAsync(async (req, res, next) => {
   const { id } = req.params;
