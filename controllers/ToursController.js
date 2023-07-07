@@ -1,17 +1,18 @@
 const Tour = require('../models/tourModels');
 const AppError = require('../utils/appError');
 
+//fn should be an async function
 const catchAsync = (fn) => {
   return (req, res, next) => {
     fn(req, res, next).catch((err) => next(err));
   };
 };
 
-exports.createNewTour = catchAsync(async (req, res) => {
+exports.createNewTour = catchAsync(async (req, res, next) => {
   const newTour = await Tour.create(req.body);
-  if (!newTour) {
-    return next();
-  }
+  // if (!newTour) {
+  //   return next();
+  // }
   res.status(201).json({
     status: 'success',
     data: {
@@ -19,7 +20,7 @@ exports.createNewTour = catchAsync(async (req, res) => {
     },
   });
 });
-exports.getAlltours = catchAsync(async (req, res) => {
+exports.getAlltours = catchAsync(async (req, res, next) => {
   // console.log(req.query);
   //query filter
   let queryItems = { ...req.query };

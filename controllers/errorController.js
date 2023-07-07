@@ -17,6 +17,9 @@ const duplicateFields = (err) => {
     400
   );
 };
+const validatorError = (err) => {
+  return new AppError(err.message, 400);
+};
 exports.globalErrorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
@@ -46,17 +49,24 @@ exports.globalErrorHandler = (err, req, res, next) => {
         nonOperationalTemplate(error, res);
       }
       //Handle duplicate fields
-      if (err.code && err.code === 11000) {
+      else if (err.code && err.code === 11000) {
         const error = duplicateFields(err);
         nonOperationalTemplate(error, res);
       }
+      //Handle validation error
+      else if (err.name === 'ValidationError') {
+        const error = validatorError(err);
+        nonOperationalTemplate(error, res);
+      }
       //Default: 500 Internal error
-      res.status(err.statusCode).json({
-        status: err.status,
-        statusCode: err.statusCode,
-        message: 'something went wrong!',
-        err,
-      });
+      else {
+        res.status(err.statusCode).json({
+          status: err.status,
+          statusCode: err.statusCode,
+          message: 'something went wrong!',
+          err,
+        });
+      }
     }
   }
 };
