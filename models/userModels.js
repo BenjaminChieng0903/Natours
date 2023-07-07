@@ -19,19 +19,20 @@ const userSchema = new mongoose.Schema({
     minlength: 8,
     validate: {
       validator: function (p) {
-        return '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|]).{8,32}$'.test(
-          p
-        );
+        return /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/.test(p);
       },
       message: (props) => `${props.value} is not a valid password`,
     },
   },
   passwordConfirm: {
     type: String,
-    require: ['please confirm your password', true],
+    required: ['please confirm your password', true],
+    validate: {
+      validator: function () {},
+    },
   },
 });
 
-const userModel = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
-module.exports = userModel;
+module.exports = User;

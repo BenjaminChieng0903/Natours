@@ -1,12 +1,6 @@
 const Tour = require('../models/tourModels');
 const AppError = require('../utils/appError');
-
-//fn should be an async function
-const catchAsync = (fn) => {
-  return (req, res, next) => {
-    fn(req, res, next).catch((err) => next(err));
-  };
-};
+const catchAsync = require('./../utils/catchAsync');
 
 exports.createNewTour = catchAsync(async (req, res, next) => {
   const newTour = await Tour.create(req.body);

@@ -1,7 +1,8 @@
-const fs = require('fs');
-const users = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/users.json`)
-);
+const User = require('./../models/userModels');
+const catchAsync = require('./../utils/catchAsync');
+// const users = JSON.parse(
+//   fs.readFileSync(`${__dirname}/../dev-data/data/users.json`)
+// );
 
 exports.getAllusers = (req, res) => {
   res.status(200).json({
@@ -11,10 +12,16 @@ exports.getAllusers = (req, res) => {
   });
 };
 
-exports.addNewusers = (req, res) => {
-  console.log(req.body);
-};
+exports.signup = catchAsync(async (req, res, next) => {
+  const newUser = await User.create(req.body);
 
+  res.status(201).json({
+    status: 'success',
+    data: {
+      user: newUser,
+    },
+  });
+});
 const searchID = (id) => {
   return users.find((el) => el._id === id);
 };
