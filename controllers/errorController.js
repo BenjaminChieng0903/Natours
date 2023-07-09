@@ -20,6 +20,9 @@ const duplicateFields = (err) => {
 const validatorError = (err) => {
   return new AppError(err.message, 400);
 };
+const JwtError = (err) => {
+  return new AppError(err.message, 401);
+};
 exports.globalErrorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
@@ -56,6 +59,9 @@ exports.globalErrorHandler = (err, req, res, next) => {
       //Handle validation error
       else if (err.name === 'ValidationError') {
         const error = validatorError(err);
+        nonOperationalTemplate(error, res);
+      } else if (err.name === 'JsonWebTokenError') {
+        const error = JwtError(err);
         nonOperationalTemplate(error, res);
       }
       //Default: 500 Internal error
