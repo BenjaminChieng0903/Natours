@@ -50,6 +50,9 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 });
 
+const compareTimeStamp = (passwordChangeTimeStamp, jwtTimeStamp) => {
+  return passwordChangeTimeStamp < jwtTimeStamp;
+};
 exports.routeProtect = catchAsync(async (req, res, next) => {
   // check if the token exist
   const token = req.headers.token;
@@ -73,6 +76,18 @@ exports.routeProtect = catchAsync(async (req, res, next) => {
     return next(new AppError('user does not exist', 404));
   }
   // check if password changed after getting token
-
+  if (searchedUser.changePasswordAt) {
+    const passwordChangeTimeStamp =
+      searchedUser.changePasswordAt.getTime() / 1000;
+    const jwtTimeStamp = decodedToken.payload.iat;
+    if (!compareTimeStamp(passwordChangeTimeStamp, jwtTimeStamp)) {
+      return next(
+        new AppError(
+          'user changed password after log in, please log in again',
+          401
+        )
+      );
+    }
+  }
   next();
 });
