@@ -1,5 +1,6 @@
 const User = require('./../models/userModels');
 const catchAsync = require('./../utils/catchAsync');
+const JWT = require('jsonwebtoken');
 // const users = JSON.parse(
 //   fs.readFileSync(`${__dirname}/../dev-data/data/users.json`)
 // );
@@ -14,9 +15,12 @@ exports.getAllusers = (req, res) => {
 
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create(req.body);
-
+  const token = JWT.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+    expiresIn: '1h',
+  });
   res.status(201).json({
     status: 'success',
+    token,
     data: {
       user: newUser,
     },
