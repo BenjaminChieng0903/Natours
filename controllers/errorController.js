@@ -23,6 +23,9 @@ const validatorError = (err) => {
 const JwtError = (err) => {
   return new AppError(err.message, 401);
 };
+const JwtExpiredError = (err) => {
+  return new AppError(err.message, 400);
+};
 exports.globalErrorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
@@ -62,6 +65,9 @@ exports.globalErrorHandler = (err, req, res, next) => {
         nonOperationalTemplate(error, res);
       } else if (err.name === 'JsonWebTokenError') {
         const error = JwtError(err);
+        nonOperationalTemplate(error, res);
+      } else if (err.name === 'TokenExpiredError') {
+        const error = JwtExpiredError(err);
         nonOperationalTemplate(error, res);
       }
       //Default: 500 Internal error

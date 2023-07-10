@@ -55,7 +55,7 @@ const compareTimeStamp = (passwordChangeTimeStamp, jwtTimeStamp) => {
 };
 exports.routeProtect = catchAsync(async (req, res, next) => {
   // check if the token exist
-  const token = req.headers.token;
+  const token = req.headers.authorization;
   const userToken = token.split(' ')[1];
   //   console.log(userToken);
   if (!userToken) {
