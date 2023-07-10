@@ -9,7 +9,10 @@ const {
   getTourStats,
   CaculatebusinessMonth,
 } = require('./../controllers/ToursController');
-const { routeProtect } = require('./../controllers/authController');
+const {
+  routeProtect,
+  restrictedRole,
+} = require('./../controllers/authController');
 
 tourRouter.route('/').get(routeProtect, getAlltours).post(createNewTour);
 tourRouter.route('/get-tour-stats').get(getTourStats);
@@ -18,6 +21,6 @@ tourRouter
   .route('/:id')
   .get(getTourById)
   .post(updateTour)
-  .delete(deleteTourById);
+  .delete(routeProtect, restrictedRole('admin', 'lead-guide'), deleteTourById);
 
 module.exports = tourRouter;

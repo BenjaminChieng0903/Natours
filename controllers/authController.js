@@ -56,13 +56,12 @@ const compareTimeStamp = (passwordChangeTimeStamp, jwtTimeStamp) => {
 exports.routeProtect = catchAsync(async (req, res, next) => {
   // check if the token exist
   const token = req.headers.authorization;
-  const userToken = token.split(' ')[1];
-  //   console.log(userToken);
-  if (!userToken) {
+  if (!token) {
     return next(
       new AppError('it is a protected route, please log in first', 401)
     );
   }
+  const userToken = token.split(' ')[1];
   // vertification of token
   const decodedToken = JWT.verify(userToken, process.env.JWT_SECRET, {
     complete: true,
@@ -89,5 +88,17 @@ exports.routeProtect = catchAsync(async (req, res, next) => {
       );
     }
   }
+  req.currentUser = searchedUser;
   next();
 });
+
+exports.restrictedRole = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.currentUser.role)) {
+      return next(
+        new AppError('this user do not have permission to do this action', 403)
+      );
+    }
+    next();
+  };
+};
