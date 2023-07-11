@@ -3,6 +3,7 @@ const User = require('./../models/userModels');
 const catchAsync = require('./../utils/catchAsync');
 const JWT = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const sendEmail = require('./../utils/sendEmail');
 
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create(req.body);
@@ -106,16 +107,37 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
     );
   }
   //2. generate the random password reset token
-  const resetToken = searchedUser.createResetToken();
+  const plainToken = searchedUser.createResetToken();
 
   await searchedUser.save({ validateBeforeSave: false });
 
-  res.status(200).json({
-    status: 'success',
-  });
   //3. Send it to the user email
+  try {
+    const resetURL = `${req.protocol}://${req.get(
+      'host'
+    )}/api/v1/users/resetPassword/${plainToken}`;
+    const text = `Forget your password? Submmit a PATCH request with your new password and passwordConfirm to: ${resetURL}`;
+
+    await sendEmail({
+      email: searchedUser.email,
+      subject: 'Your password token valid in 15 mins',
+      text,
+    });
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Token sent to email',
+    });
+  } catch (err) {
+    (searchedUser.resetPasswordToken = undefined),
+      (searchedUser.resetPasswordTokenExpire = undefined);
+    await searchedUser.save({ validateBeforeSave: false });
+
+    return next(
+      new AppError('There was something wrong when send the email', 500)
+    );
+  }
   //   next();
-  //   console.log(updatedUser);
 });
 exports.resetPassword = () => {};
 exports.restrictedRole = (...roles) => {

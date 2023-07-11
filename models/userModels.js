@@ -54,17 +54,17 @@ userSchema.pre('save', async function (next) {
   next();
 });
 userSchema.methods.createResetToken = function () {
-  const randomBytes = crypto.randomBytes(32).toString('hex');
+  const plainToken = crypto.randomBytes(32).toString('hex');
 
-  const resetToken = crypto
+  const encryptedResetToken = crypto
     .createHash('sha256')
-    .update(randomBytes)
+    .update(plainToken)
     .digest('hex');
-  this.resetPasswordToken = resetToken;
+  this.resetPasswordToken = encryptedResetToken;
   //set expireTime to 15min
   this.resetPasswordTokenExpire = Date.now() + 15 * 60 * 1000;
   //   console.log(this.resetPasswordTokenExpire);
-  return resetToken;
+  return plainToken;
 };
 const User = mongoose.model('User', userSchema);
 
