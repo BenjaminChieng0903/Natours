@@ -92,6 +92,32 @@ exports.routeProtect = catchAsync(async (req, res, next) => {
   next();
 });
 
+exports.forgetPassword = catchAsync(async (req, res, next) => {
+  // the user will click the link that navigate to new page
+  // and they will fill their account email. The server will send a notification
+  // to their email
+
+  //1. get the user email
+  const email = req.body.email;
+  const searchedUser = await User.findOne({ email });
+  if (!searchedUser || !email) {
+    return next(
+      new AppError('no email with the user, please fill out the email', 400)
+    );
+  }
+  //2. generate the random password reset token
+  const resetToken = searchedUser.createResetToken();
+
+  await searchedUser.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    status: 'success',
+  });
+  //3. Send it to the user email
+  //   next();
+  //   console.log(updatedUser);
+});
+exports.resetPassword = () => {};
 exports.restrictedRole = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.currentUser.role)) {
