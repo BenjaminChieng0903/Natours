@@ -4,6 +4,7 @@ const catchAsync = require('./../utils/catchAsync');
 const JWT = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const sendEmail = require('./../utils/sendEmail');
+const crypto = require('crypto');
 
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create(req.body);
@@ -139,7 +140,43 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
   }
   //   next();
 });
-exports.resetPassword = () => {};
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  //1. get user based on token
+  const { token: plainToken } = req.params;
+
+  const encryptedToken = crypto
+    .createHash('sha256')
+    .update(plainToken)
+    .digest('hex');
+
+  //2. check if the token is expired
+  const searchedUser = await User.findOne({
+    resetPasswordToken: encryptedToken,
+  });
+
+  if (Date.now() > searchedUser.resetPasswordTokenExpire) {
+    return next(
+      new AppError('reset password token has expired, please try again!', 403)
+    );
+  }
+  //3. change new password
+  searchedUser.password = req.body.password;
+  searchedUser.passwordConfirm = req.body.passwordConfirm;
+  searchedUser.resetPasswordToken = undefined;
+  searchedUser.resetPasswordTokenExpire = undefined;
+  //4. set changePasswordAt
+  await searchedUser.save();
+
+  //5. log user in and send new JWT
+  const newToken = JWT.sign({ id: searchedUser._id }, process.env.JWT_SECRET, {
+    expiresIn: '1h',
+  });
+  res.status(200).json({
+    status: 'success',
+    token: newToken,
+    message: 'change to new password successfully!',
+  });
+});
 exports.restrictedRole = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.currentUser.role)) {

@@ -45,12 +45,21 @@ const userSchema = new mongoose.Schema({
   resetPasswordToken: String,
   resetPasswordTokenExpire: Date,
 });
+//encrypt password after change the password or create the new document
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
-  //   console.log(this.get('password'));
+  //   console.log('pre 1');
   const cryptedPassword = bcrypt.hash(this.get('password'), 12);
   this.password = await cryptedPassword;
   this.passwordConfirm = undefined;
+  next();
+});
+//set changePasswordAt after change password
+userSchema.pre('save', function (next) {
+  //   console.log('pre 2');
+  //if password not be modified or create the new document
+  if (!this.isModified('password') || !this.isNew) return next();
+  this.changePasswordAt = Date.now();
   next();
 });
 userSchema.methods.createResetToken = function () {
@@ -60,6 +69,7 @@ userSchema.methods.createResetToken = function () {
     .createHash('sha256')
     .update(plainToken)
     .digest('hex');
+  // we store the encrypted token into database
   this.resetPasswordToken = encryptedResetToken;
   //set expireTime to 15min
   this.resetPasswordTokenExpire = Date.now() + 15 * 60 * 1000;
