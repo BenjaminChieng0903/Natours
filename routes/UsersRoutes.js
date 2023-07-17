@@ -10,12 +10,15 @@ const {
   login,
   forgetPassword,
   resetPassword,
+  routeProtect,
+  updatePassword,
 } = require('./../controllers/authController');
 
 userRouter.route('/').get(getAllusers).post(signup);
 userRouter.route('/login').post(login);
 userRouter.route('/forgetPassword').post(forgetPassword);
 userRouter.route('/resetPassword/:token').patch(resetPassword);
+userRouter.route('/updateMyPassword').patch(routeProtect, updatePassword);
 userRouter.route('/:id').get(getUser).delete(deleteUser);
 
 module.exports = userRouter;

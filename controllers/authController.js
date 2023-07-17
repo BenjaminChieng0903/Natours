@@ -187,3 +187,30 @@ exports.restrictedRole = (...roles) => {
     next();
   };
 };
+
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  //   console.log(req.currentUser._id);
+  const searchedUser = await User.findById({ _id: req.currentUser._id });
+  console.log(searchedUser.password);
+
+  //1. check if current password correct
+  if (!bcrypt.compare(req.body.currentPassword, searchedUser.password)) {
+    return next(
+      new AppError('current password is wrong, please try again!', 403)
+    );
+  }
+  //2. update password
+  searchedUser.password = req.body.password;
+  searchedUser.passwordConfirm = req.body.passwordConfirm;
+  await searchedUser.save();
+  //3. log user in, send new JWT
+  const newToken = JWT.sign({ id: searchedUser._id }, process.env.JWT_SECRET, {
+    expiresIn: '1h',
+  });
+
+  res.status(200).json({
+    status: 'success',
+    token: newToken,
+    message: 'update password successfully!',
+  });
+});

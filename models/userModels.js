@@ -58,7 +58,7 @@ userSchema.pre('save', async function (next) {
 userSchema.pre('save', function (next) {
   //   console.log('pre 2');
   //if password not be modified or create the new document
-  if (!this.isModified('password') || !this.isNew) return next();
+  if (!this.isModified('password') || this.isNew) return next();
   this.changePasswordAt = Date.now();
   next();
 });
