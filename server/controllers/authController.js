@@ -191,8 +191,6 @@ exports.restrictedRole = (...roles) => {
 exports.updatePassword = catchAsync(async (req, res, next) => {
   //   console.log(req.currentUser._id);
   const searchedUser = await User.findById({ _id: req.currentUser._id });
-  console.log(searchedUser.password);
-
   //1. check if current password correct
   if (!bcrypt.compare(req.body.currentPassword, searchedUser.password)) {
     return next(
