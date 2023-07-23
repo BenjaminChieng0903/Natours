@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+
 // console.log(process.env);
 dotenv.config({ path: './config.env' });
 const DB = process.env.DATABASE.replace(
@@ -19,7 +20,7 @@ mongoose
 
 const app = require('./app');
 
-const port = 3000;
+const port = 8000;
 app.listen(port, () => {
   console.log(`server is running on ${port} `);
 });
