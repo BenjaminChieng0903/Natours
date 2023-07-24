@@ -1,6 +1,15 @@
 import "./card.scss";
 const Card = ({ categories }) => {
   console.log(categories);
+  const {
+    difficulty,
+    duration,
+    summary,
+    maxGroupSize,
+    price,
+    rating,
+    ratingsQuantity,
+  } = categories;
   return (
     <div className="card">
       <div className="card__header">
@@ -19,10 +28,10 @@ const Card = ({ categories }) => {
       </div>
 
       <div className="card__details">
-        <h4 className="card__sub-heading">Easy 5-day tour</h4>
-        <p className="card__text">
-          Breathtaking hike through the Canadian Banff National Park
-        </p>
+        <h4 className="card__sub-heading">
+          {difficulty} {duration}-days tour
+        </h4>
+        <p className="card__text">{summary}</p>
         <div className="card__data">
           <svg className="card__icon">
             <use href="img/icons.svg#icon-map-pin"></use>
@@ -45,18 +54,18 @@ const Card = ({ categories }) => {
           <svg className="card__icon">
             <use href="img/icons.svg#icon-user"></use>
           </svg>
-          <span>25 people</span>
+          <span>{maxGroupSize} people</span>
         </div>
       </div>
 
       <div className="card__footer">
         <p>
-          <span className="card__footer-value">$297</span>
+          <span className="card__footer-value">{price}</span>
           <span className="card__footer-text">per person</span>
         </p>
         <p className="card__ratings">
-          <span className="card__footer-value">4.9</span>
-          <span className="card__footer-text">rating (21)</span>
+          <span className="card__footer-value">{rating}</span>
+          <span className="card__footer-text">rating ({ratingsQuantity})</span>
         </p>
         <a href="#" className="btn btn--green btn--small">
           Details

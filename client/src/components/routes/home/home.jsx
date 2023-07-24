@@ -1,19 +1,26 @@
 import { useEffect, useState } from "react";
 import Card from "../Card/card";
 import "./home.scss";
+import AxiosApi from "../../../axiosApi/api";
 // get all tour data from server
 const Home = () => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/tours`)
-      .then((res) => res.json())
-      .then((data) => setCategories(data))
-      .catch((err) => console.log(err));
+    const getAlltours = async () => {
+      const res = await AxiosApi.get("/tours");
+      const resData = res.data;
+      console.log(resData);
+      setCategories(resData.data);
+    };
+
+    getAlltours();
   }, []);
 
   return (
     <div className="card-container">
-      <Card categories={categories} />
+      {categories.map((item) => (
+        <Card categories={item} />
+      ))}
     </div>
   );
 };
