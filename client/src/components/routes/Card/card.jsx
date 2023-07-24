@@ -10,21 +10,21 @@ const Card = ({ categories }) => {
     price,
     rating,
     ratingsQuantity,
+    name,
+    imageCover,
   } = categories;
+
+  const imageUrl = `img/tours/${imageCover}`;
   return (
     <div className="card">
       <div className="card__header">
         <div className="card__picture">
           <div className="card__picture-overlay">&nbsp;</div>
-          <img
-            src="img/tour-1-cover.jpg"
-            alt="Tour 1"
-            className="card__picture-img"
-          />
+          <img src={imageUrl} alt={name} className="card__picture-img" />
         </div>
 
         <h3 className="heading-tertirary">
-          <span>The Forest Hiker</span>
+          <span>{name}</span>
         </h3>
       </div>
 

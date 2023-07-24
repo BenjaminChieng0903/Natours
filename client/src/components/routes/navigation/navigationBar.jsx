@@ -26,7 +26,7 @@ const NavigationBar = () => {
           </form>
         // </nav> */}
         <div className="header__logo">
-          <img src="img/logo-white.png" alt="Natours logo" />
+          <img src="../../../assets/img/logo-white.png" alt="Natours logo" />
         </div>
         <div className="navigtion nav--user">
           {/* <a href="#" className="nav__el">
