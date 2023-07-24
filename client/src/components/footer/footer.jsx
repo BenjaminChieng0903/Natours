@@ -1,10 +1,12 @@
+import "./../css/styles.css";
+// import "./footer.scss";
 const Footer = () => {
   return (
-    <div class="footer">
-      <div class="footer__logo">
+    <div className="footer">
+      <div className="footer__logo">
         <img src="img/logo-green.png" alt="Natours logo" />
       </div>
-      <ul class="footer__nav">
+      <ul className="footer__nav">
         <li>
           <a href="#">About us</a>
         </li>
@@ -21,7 +23,7 @@ const Footer = () => {
           <a href="#">Contact</a>
         </li>
       </ul>
-      <p class="footer__copyright">
+      <p className="footer__copyright">
         &copy; by Jonas Schmedtmann. All rights reserved.
       </p>
     </div>

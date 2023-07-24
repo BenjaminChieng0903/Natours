@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "../Card/card";
 import "./home.scss";
 import AxiosApi from "../../../axiosApi/api";
+// import "./../../css/styles.css";
 // get all tour data from server
 const Home = () => {
   const [categories, setCategories] = useState([]);
@@ -17,11 +18,13 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="card-container">
-      {categories.map((item) => (
-        <Card categories={item} />
-      ))}
-    </div>
+    <main className="main">
+      <div className="card-container">
+        {categories.map((item) => (
+          <Card categories={item} />
+        ))}
+      </div>
+    </main>
   );
 };
 

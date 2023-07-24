@@ -1,3 +1,4 @@
+// import "./../../css/styles.css";
 import "./card.scss";
 const Card = ({ categories }) => {
   console.log(categories);
