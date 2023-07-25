@@ -8,12 +8,13 @@ const Card = ({ categories }) => {
     summary,
     maxGroupSize,
     price,
-    rating,
+    ratingsAverage,
     ratingsQuantity,
     name,
     imageCover,
     startLocation,
     startDates,
+    locations,
   } = categories;
 
   const imageUrl = `img/tours/${imageCover}`;
@@ -25,18 +26,6 @@ const Card = ({ categories }) => {
   //   console.log(firstDateArr);
   //   const firstDate = firstDateArr[1].concat(firstDateArr[0]);
   //   startDates[0].toLocaleString("en-AU", {
-  //     month: "long",
-  //     year: "numeric",
-  //   });
-
-  //   console.log(
-  //     firstDate.toLocaleString("en-AU", {
-  //       month: "long",
-  //       year: "numeric",
-  //     })
-  //   );
-
-  //   toLocaleString("en-us", {
   //     month: "long",
   //     year: "numeric",
   //   });
@@ -75,7 +64,7 @@ const Card = ({ categories }) => {
           <svg className="card__icon">
             <use href="img/icons.svg#icon-flag"></use>
           </svg>
-          <span>3 stops</span>
+          <span>{locations.length} stops</span>
         </div>
         <div className="card__data">
           <svg className="card__icon">
@@ -91,8 +80,8 @@ const Card = ({ categories }) => {
           <span className="card__footer-text">per person</span>
         </p>
         <p className="card__ratings">
-          <span className="card__footer-value">{rating}</span>
-          <span className="card__footer-text">rating ({ratingsQuantity})</span>
+          <span className="card__footer-value">{ratingsAverage}</span>
+          <span className="card__footer-text"> rating ({ratingsQuantity})</span>
         </p>
         <a href="#" className="btn btn--green btn--small">
           Details
