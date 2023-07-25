@@ -1,4 +1,5 @@
 // import "./../../css/styles.css";
+import { useNavigate } from "react-router-dom";
 import "./card.scss";
 const Card = ({ categories }) => {
   console.log(categories);
@@ -16,7 +17,7 @@ const Card = ({ categories }) => {
     startDates,
     locations,
   } = categories;
-
+  const navigate = useNavigate();
   const imageUrl = `img/tours/${imageCover}`;
   //   console.log(typeof startDates[0]);
   //   console.log(isDate(startDates[0]));
@@ -83,9 +84,12 @@ const Card = ({ categories }) => {
           <span className="card__footer-value">{ratingsAverage}</span>
           <span className="card__footer-text"> rating ({ratingsQuantity})</span>
         </p>
-        <a href="#" className="btn btn--green btn--small">
+        <button
+          className="btn btn--green btn--small"
+          onClick={() => navigate("/details")}
+        >
           Details
-        </a>
+        </button>
       </div>
     </div>
   );

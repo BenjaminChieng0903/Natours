@@ -12,13 +12,13 @@ const TourDetails = () => {
           <div class="heading-box__group">
             <div class="heading-box__detail">
               <svg class="heading-box__icon">
-                <use xlink:href="img/icons.svg#icon-clock"></use>
+                <use href="img/icons.svg#icon-clock"></use>
               </svg>
               <span class="heading-box__text">10 days</span>
             </div>
             <div class="heading-box__detail">
               <svg class="heading-box__icon">
-                <use xlink:href="img/icons.svg#icon-map-pin"></use>
+                <use href="img/icons.svg#icon-map-pin"></use>
               </svg>
               <span class="heading-box__text">Las Vegas, USA</span>
             </div>
@@ -33,28 +33,28 @@ const TourDetails = () => {
               <h2 class="heading-secondary ma-bt-lg">Quick facts</h2>
               <div class="overview-box__detail">
                 <svg class="overview-box__icon">
-                  <use xlink:href="img/icons.svg#icon-calendar"></use>
+                  <use href="img/icons.svg#icon-calendar"></use>
                 </svg>
                 <span class="overview-box__label">Next date</span>
                 <span class="overview-box__text">August 2021</span>
               </div>
               <div class="overview-box__detail">
                 <svg class="overview-box__icon">
-                  <use xlink:href="img/icons.svg#icon-trending-up"></use>
+                  <use href="img/icons.svg#icon-trending-up"></use>
                 </svg>
                 <span class="overview-box__label">Difficulty</span>
                 <span class="overview-box__text">Medium</span>
               </div>
               <div class="overview-box__detail">
                 <svg class="overview-box__icon">
-                  <use xlink:href="img/icons.svg#icon-user"></use>
+                  <use href="img/icons.svg#icon-user"></use>
                 </svg>
                 <span class="overview-box__label">Participants</span>
                 <span class="overview-box__text">10 people</span>
               </div>
               <div class="overview-box__detail">
                 <svg class="overview-box__icon">
-                  <use xlink:href="img/icons.svg#icon-star"></use>
+                  <use href="img/icons.svg#icon-star"></use>
                 </svg>
                 <span class="overview-box__label">Rating</span>
                 <span class="overview-box__text">4.9 / 5</span>
@@ -281,19 +281,19 @@ const TourDetails = () => {
             </p>
             <div class="reviews__rating">
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
             </div>
           </div>
@@ -314,19 +314,19 @@ const TourDetails = () => {
             </p>
             <div class="reviews__rating">
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--inactive">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
             </div>
           </div>
@@ -347,19 +347,19 @@ const TourDetails = () => {
             </p>
             <div class="reviews__rating">
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
             </div>
           </div>
@@ -380,19 +380,19 @@ const TourDetails = () => {
             </p>
             <div class="reviews__rating">
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
             </div>
           </div>
@@ -412,19 +412,19 @@ const TourDetails = () => {
             </p>
             <div class="reviews__rating">
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
               <svg class="reviews__star reviews__star--active">
-                <use xlink:href="img/icons.svg#icon-star"></use>
+                <use href="img/icons.svg#icon-star"></use>
               </svg>
             </div>
           </div>

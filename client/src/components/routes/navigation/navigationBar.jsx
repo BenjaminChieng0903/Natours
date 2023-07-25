@@ -1,14 +1,15 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "../../footer/footer";
 import "./navigationbar.scss";
 // import "./../../css/styles.css";
 const NavigationBar = () => {
+  const navigate = useNavigate();
   return (
     // <body className="container">
     <div>
       <header className="navheader">
         <div className="navigation nav--tours">
-          <a href="#" className="nav__el">
+          <a href="/" className="nav__el">
             All tours
           </a>
         </div>
@@ -37,8 +38,15 @@ const NavigationBar = () => {
             <span>Jonas</span>
           </a> */}
 
-          <button className="nav__el">Log in</button>
-          <button className="nav__el nav__el--cta">Sign up</button>
+          <button className="nav__el" onClick={() => navigate("/login")}>
+            Log in
+          </button>
+          <button
+            className="nav__el nav__el--cta"
+            onClick={() => navigate("/signup")}
+          >
+            Sign up
+          </button>
         </div>
       </header>
       <Outlet />
