@@ -44,6 +44,13 @@ const userSchema = new mongoose.Schema({
   },
   resetPasswordToken: String,
   resetPasswordTokenExpire: Date,
+  photo: {
+    type: String,
+    default: null,
+  },
+  active: {
+    type: Boolean,
+  },
 });
 //encrypt password after change the password or create the new document
 userSchema.pre('save', async function (next) {

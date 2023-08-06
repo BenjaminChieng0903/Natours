@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import AxiosApi from "./../../../axiosApi/api";
 import "./login.css";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../store/user/user.action";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   let [errMessage, setErrMessage] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const login = async (e) => {
     e.preventDefault();
     console.log(email, password);
@@ -12,7 +17,13 @@ const Login = () => {
       email,
       password,
     })
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        const { role, name, email, photo } = res.data.user;
+
+        alert("login successfully");
+        dispatch(setCurrentUser({ role, name, email, photo }));
+        navigate("/");
+      })
       .catch((err) => {
         console.log(err.response.data);
         setErrMessage(err.response.data.message);

@@ -1,7 +1,7 @@
 // const users = JSON.parse(
 //   fs.readFileSync(`${__dirname}/../dev-data/data/users.json`)
 // );
-
+const User = require('./../models/userModels');
 exports.getAllusers = (req, res) => {
   res.status(200).json({
     status: 'success',
@@ -9,7 +9,18 @@ exports.getAllusers = (req, res) => {
     data: users,
   });
 };
-
+exports.createUser = async (req, res) => {
+  const newUser = await User.create(req.body);
+  // if (!newTour) {
+  //   return next();
+  // }
+  res.status(201).json({
+    status: 'success',
+    data: {
+      tour: newUser,
+    },
+  });
+};
 const searchID = (id) => {
   return users.find((el) => el._id === id);
 };

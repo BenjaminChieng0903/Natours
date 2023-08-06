@@ -4,7 +4,7 @@ import "./home.scss";
 import AxiosApi from "../../../axiosApi/api";
 import { useDispatch, useSelector } from "react-redux";
 import { FetchToursSuccess } from "../../store/tours/tours.action";
-import { selectorTours } from "../../store/tours/tours.selector";
+
 // import "./../../css/styles.css";
 // get all tour data from server
 const Home = () => {

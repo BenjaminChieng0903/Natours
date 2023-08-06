@@ -1,9 +1,14 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "../../footer/footer";
 import "./navigationbar.scss";
+import { useSelector } from "react-redux";
+import { selectorCurrentUser } from "../../store/user/user.selector";
 // import "./../../css/styles.css";
 const NavigationBar = () => {
   const navigate = useNavigate();
+  const currentUser = useSelector(selectorCurrentUser);
+  const { name, photo } = currentUser;
+  const photoUrl = `img/users/${photo}`;
   return (
     // <body className="container">
     <div>
@@ -37,16 +42,33 @@ const NavigationBar = () => {
             <img src="img/user.jpg" alt="User photo" className="nav__user-img" />
             <span>Jonas</span>
           </a> */}
+          {!currentUser ? (
+            <>
+              <button className="nav__el" onClick={() => navigate("/login")}>
+                Log in
+              </button>
 
-          <button className="nav__el" onClick={() => navigate("/login")}>
-            Log in
-          </button>
-          <button
-            className="nav__el nav__el--cta"
-            onClick={() => navigate("/signup")}
-          >
-            Sign up
-          </button>
+              <button
+                className="nav__el nav__el--cta"
+                onClick={() => navigate("/signup")}
+              >
+                Sign up
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="nav__el">Log out</button>
+              <a
+                onClick={() =>
+                  console.log("this will redirect to account page")
+                }
+                class="nav__el"
+              >
+                <img src={photoUrl} alt={name} class="nav__user-img" />
+                <span>{name}</span>
+              </a>
+            </>
+          )}
         </div>
       </header>
       <Outlet />
