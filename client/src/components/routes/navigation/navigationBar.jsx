@@ -24,6 +24,7 @@ const NavigationBar = () => {
 
   const Logout = () => {
     dispatch(removeCurrentUser(null));
+    navigate("/");
   };
   return (
     // <body className="container">
@@ -60,13 +61,16 @@ const NavigationBar = () => {
           </a> */}
           {!currentUser ? (
             <>
-              <button className="nav__el" onClick={() => navigate("/login")}>
+              <button
+                className="nav__el"
+                onClick={() => navigate("users/login")}
+              >
                 Log in
               </button>
 
               <button
                 className="nav__el nav__el--cta"
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate("users/signup")}
               >
                 Sign up
               </button>
@@ -83,7 +87,13 @@ const NavigationBar = () => {
                 class="nav__el"
               >
                 <img src={photoUrl} alt={name} class="nav__user-img" />
-                <span>{name}</span>
+                <span
+                  onClick={() => {
+                    navigate("/users/account");
+                  }}
+                >
+                  {name}
+                </span>
               </a>
             </>
           )}
