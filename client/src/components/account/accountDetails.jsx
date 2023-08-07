@@ -1,12 +1,16 @@
+import { useSelector } from "react-redux";
 import "./accountDetails.css";
+import { selectorCurrentUser } from "../store/user/user.selector";
 const AccountDetails = () => {
+  const currentUser = useSelector(selectorCurrentUser);
+  const photoUrl = `/img/users/${currentUser.photo}`;
   return (
     <>
-      <main class="main">
-        <div class="user-view">
-          <nav class="user-view__menu">
-            <ul class="side-nav">
-              <li class="side-nav--active">
+      <main className="main">
+        <div className="user-view">
+          <nav className="user-view__menu">
+            <ul className="side-nav">
+              <li className="side-nav--active">
                 <a href="#">
                   <svg>
                     <use href="img/icons.svg#icon-settings"></use>
@@ -39,9 +43,9 @@ const AccountDetails = () => {
                 </a>
               </li>
             </ul>
-            <div class="admin-nav">
-              <h5 class="admin-nav__heading">Admin</h5>
-              <ul class="side-nav">
+            <div className="admin-nav">
+              <h5 className="admin-nav__heading">Admin</h5>
+              <ul className="side-nav">
                 <li>
                   <a href="#">
                     <svg>
@@ -76,61 +80,61 @@ const AccountDetails = () => {
               </ul>
             </div>
           </nav>
-          <div class="user-view__content">
-            <div class="user-view__form-container">
-              <h2 class="heading-secondary ma-bt-md">Your account settings</h2>
-              <form class="form form-user-data">
-                <div class="form__group">
-                  <label class="form__label" for="name">
+          <div className="user-view__content">
+            <div className="user-view__form-container">
+              <h2 className="heading-secondary ma-bt-md">
+                Your account settings
+              </h2>
+              <form className="form form-user-data">
+                <div className="form__group">
+                  <label className="form__label" for="name">
                     Name
                   </label>
                   <input
-                    class="form__input"
+                    className="form__input"
                     id="name"
                     type="text"
-                    value="Jonas Schmedtmann"
+                    value={currentUser.name}
                     required="required"
                   />
                 </div>
-                <div class="form__group ma-bt-md">
-                  <label class="form__label" for="email">
+                <div className="form__group ma-bt-md">
+                  <label className="form__label" for="email">
                     Email address
                   </label>
                   <input
-                    class="form__input"
+                    className="form__input"
                     id="email"
                     type="email"
-                    value="admin@natours.io"
+                    value={currentUser.email}
                     required="required"
                   />
                 </div>
-                <div class="form__group form__photo-upload">
+                <div className="form__group form__photo-upload">
                   <img
-                    class="form__user-photo"
-                    src="img/user.jpg"
+                    className="form__user-photo"
+                    src={photoUrl}
                     alt="User photo"
                   />
-                  <a class="btn-text" href="">
-                    Choose new photo
-                  </a>
+                  <a className="btn-text">Choose new photo</a>
                 </div>
-                <div class="form__group right">
-                  <button class="btn btn--small btn--green">
+                <div className="form__group right">
+                  <button className="btn btn--small btn--green">
                     Save settings
                   </button>
                 </div>
               </form>
             </div>
-            <div class="line">&nbsp;</div>
-            <div class="user-view__form-container">
-              <h2 class="heading-secondary ma-bt-md">Password change</h2>
-              <form class="form form-user-settings">
-                <div class="form__group">
-                  <label class="form__label" for="password-current">
+            <div className="line">&nbsp;</div>
+            <div className="user-view__form-container">
+              <h2 className="heading-secondary ma-bt-md">Password change</h2>
+              <form className="form form-user-settings">
+                <div className="form__group">
+                  <label className="form__label" for="password-current">
                     Current password
                   </label>
                   <input
-                    class="form__input"
+                    className="form__input"
                     id="password-current"
                     type="password"
                     placeholder="••••••••"
@@ -138,12 +142,12 @@ const AccountDetails = () => {
                     minlength="8"
                   />
                 </div>
-                <div class="form__group">
-                  <label class="form__label" for="password">
+                <div className="form__group">
+                  <label className="form__label" for="password">
                     New password
                   </label>
                   <input
-                    class="form__input"
+                    className="form__input"
                     id="password"
                     type="password"
                     placeholder="••••••••"
@@ -151,12 +155,12 @@ const AccountDetails = () => {
                     minlength="8"
                   />
                 </div>
-                <div class="form__group ma-bt-lg">
-                  <label class="form__label" for="password-confirm">
+                <div className="form__group ma-bt-lg">
+                  <label className="form__label" for="password-confirm">
                     Confirm password
                   </label>
                   <input
-                    class="form__input"
+                    className="form__input"
                     id="password-confirm"
                     type="password"
                     placeholder="••••••••"
@@ -164,8 +168,8 @@ const AccountDetails = () => {
                     minlength="8"
                   />
                 </div>
-                <div class="form__group right">
-                  <button class="btn btn--small btn--green">
+                <div className="form__group right">
+                  <button className="btn btn--small btn--green">
                     Save password
                   </button>
                 </div>

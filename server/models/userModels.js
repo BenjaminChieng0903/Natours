@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema({
   resetPasswordTokenExpire: Date,
   photo: {
     type: String,
-    default: null,
+    default: 'default.jpg',
   },
   active: {
     type: Boolean,
