@@ -13,13 +13,14 @@ const NavigationBar = () => {
   const [name, setName] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
   useEffect(() => {
+    // console.log(currentUser);
     if (currentUser) {
       const { name, photo } = currentUser;
       const photoUrl = `img/users/${photo}`;
       setName(name);
       setPhotoUrl(photoUrl);
     }
-  }, [name, photoUrl]);
+  }, [currentUser]);
 
   const Logout = () => {
     dispatch(removeCurrentUser(null));

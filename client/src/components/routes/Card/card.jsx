@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import "./card.scss";
 const Card = ({ categories }) => {
-  console.log(categories);
+  // console.log(categories);
   const {
     difficulty,
     duration,
