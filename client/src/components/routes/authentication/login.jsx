@@ -30,14 +30,13 @@ const Login = () => {
       });
   };
   useEffect(() => {
-    console.log("errMessage:" + errMessage + typeof errMessage);
-    if (errMessage !== null)
+    if (errMessage !== null) {
       document.getElementById("errMessage").style.display = "inline-block";
-
-    setTimeout(() => {
-      document.getElementById("errMessage").style.display = "none";
-      setErrMessage(null);
-    }, 2000);
+      setTimeout(() => {
+        document.getElementById("errMessage").style.display = "none";
+        setErrMessage(null);
+      }, 2000);
+    }
   }, [errMessage]);
   return (
     <main className="main">

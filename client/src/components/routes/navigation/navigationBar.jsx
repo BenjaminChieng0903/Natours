@@ -1,14 +1,29 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "../../footer/footer";
 import "./navigationbar.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectorCurrentUser } from "../../store/user/user.selector";
+import { removeCurrentUser } from "../../store/user/user.action";
+import { useEffect, useState } from "react";
 // import "./../../css/styles.css";
 const NavigationBar = () => {
   const navigate = useNavigate();
   const currentUser = useSelector(selectorCurrentUser);
-  const { name, photo } = currentUser;
-  const photoUrl = `img/users/${photo}`;
+  const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
+  useEffect(() => {
+    if (currentUser) {
+      const { name, photo } = currentUser;
+      const photoUrl = `img/users/${photo}`;
+      setName(name);
+      setPhotoUrl(photoUrl);
+    }
+  }, [name, photoUrl]);
+
+  const Logout = () => {
+    dispatch(removeCurrentUser(null));
+  };
   return (
     // <body className="container">
     <div>
@@ -57,7 +72,9 @@ const NavigationBar = () => {
             </>
           ) : (
             <>
-              <button className="nav__el">Log out</button>
+              <button className="nav__el" onClick={Logout}>
+                Log out
+              </button>
               <a
                 onClick={() =>
                   console.log("this will redirect to account page")
