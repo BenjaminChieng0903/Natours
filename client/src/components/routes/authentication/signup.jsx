@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./signup.css";
 import AxiosApi from "../../../axiosApi/api";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -8,6 +9,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [errMessage, setErrMessage] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const signUp = async (e) => {
@@ -24,8 +26,20 @@ const Signup = () => {
         dispatch(setCurrentUser({ role, name, email, photo }));
         navigate("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err.response.data.message);
+        setErrMessage(err.response.data.message);
+      });
   };
+  useEffect(() => {
+    if (errMessage != null) {
+      document.getElementById("errMessage").style.display = "inline-block";
+      setTimeout(() => {
+        document.getElementById("errMessage").style.display = "none";
+        setErrMessage(null);
+      }, 2000);
+    }
+  }, [errMessage]);
   // useEffect(() => {}, [email, password, passwordConfirm]);
   return (
     <main class="main">
@@ -90,6 +104,9 @@ const Signup = () => {
             <button class="btn btn--green" onClick={signUp}>
               SIGNUP
             </button>
+            <p className="errMessage" id="errMessage">
+              {errMessage}
+            </p>
           </div>
         </form>
       </div>

@@ -7,7 +7,10 @@ const sendEmail = require('./../utils/sendEmail');
 const crypto = require('crypto');
 
 exports.signup = catchAsync(async (req, res, next) => {
-  console.log(req.body);
+  const { email, password, name, passwordConfirm } = req.body;
+  if (!email || !password || !name || !passwordConfirm) {
+    return next(new AppError('please fill all the fields', 400));
+  }
   const newUser = await User.create(req.body);
   const token = JWT.sign({ id: newUser._id }, process.env.JWT_SECRET, {
     expiresIn: '1h',

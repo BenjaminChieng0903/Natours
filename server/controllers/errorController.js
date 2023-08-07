@@ -12,13 +12,15 @@ const castError = (err) => {
   return new AppError(`Invalid ID ${err.stringValue}`, 400);
 };
 const duplicateFields = (err) => {
-  return new AppError(
-    `fields "${Object.keys(err.keyValue)[0]}" with duplicate value`,
-    400
-  );
+  const message = `fields "${
+    Object.keys(err.keyValue)[0]
+  }" value has already exist, please change`;
+
+  return new AppError(message, 400);
 };
 const validatorError = (err) => {
-  return new AppError(err.message, 400);
+  const message = err.message.split(':')[2];
+  return new AppError(message, 400);
 };
 const JwtError = (err) => {
   return new AppError(err.message, 401);
