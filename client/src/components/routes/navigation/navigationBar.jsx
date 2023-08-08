@@ -16,9 +16,9 @@ const NavigationBar = () => {
     // console.log(currentUser);
     if (currentUser) {
       const { name, photo } = currentUser;
-      const photoUrl = `img/users/${photo}`;
+      // const photoUrl = `img/users/${photo}`;
       setName(name);
-      setPhotoUrl(photoUrl);
+      setPhotoUrl(photo);
     }
   }, [currentUser]);
 

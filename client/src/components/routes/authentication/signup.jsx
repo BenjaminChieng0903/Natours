@@ -22,8 +22,8 @@ const Signup = () => {
     })
       .then((res) => {
         console.log(res.data.data.user);
-        const { role, name, email, photo } = res.data.data.user;
-        dispatch(setCurrentUser({ role, name, email, photo }));
+        const { role, name, email, photo, _id } = res.data.data.user;
+        dispatch(setCurrentUser({ role, name, email, photo, _id }));
         navigate("/");
       })
       .catch((err) => {

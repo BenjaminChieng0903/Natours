@@ -28,7 +28,15 @@ const AccountDetails = () => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      }).then((res) => res.data.data.image.url);
+      }).then(
+        //change photo value in db
+        async (res) => {
+          await AxiosApi.post("/users/account/updateMe", {
+            id: currentUser._id,
+            photo: res.data.data.image.url,
+          }).then((res) => console.log(res));
+        }
+      );
       // .catch((err) => console.log(err));
     } else {
       // errorHandling for back-end

@@ -9,6 +9,8 @@ export const userReducer = (state = USER_INITIAL_STATE, action) => {
       return { ...state, currentUser: payload };
     case USER_ACTION_TYPE.REMOVE_CURRENT_USER:
       return { currentUser: null };
+    case USER_ACTION_TYPE.UPDATE_CURRENT_USER_PHOTO:
+      return { ...state, payload };
     default:
       return state;
   }

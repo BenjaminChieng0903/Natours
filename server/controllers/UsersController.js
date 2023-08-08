@@ -41,9 +41,19 @@ exports.getUser = (req, res) => {
 //   console.log(req.body);
 //   next();
 // };
-exports.uploadUserImage = (req, res, next) => {
-  console.log(req.file);
-  if (req.file) {
+exports.uploadUserImage = async (req, res, next) => {
+  const { id, photo } = req.body;
+  // console.log(id);
+  console.log(req.body);
+  if (req.body) {
+    await User.findByIdAndUpdate(
+      id,
+      { photo },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     res.status(200).json({
       status: 'success',
     });

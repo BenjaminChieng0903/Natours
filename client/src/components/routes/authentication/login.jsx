@@ -18,10 +18,11 @@ const Login = () => {
       password,
     })
       .then((res) => {
-        const { role, name, email, photo } = res.data.user;
+        // console.log(res.data.user._id);
+        const { role, name, email, photo, _id } = res.data.user;
 
         alert("login successfully");
-        dispatch(setCurrentUser({ role, name, email, photo }));
+        dispatch(setCurrentUser({ role, name, email, photo, _id }));
         navigate("/");
       })
       .catch((err) => {
