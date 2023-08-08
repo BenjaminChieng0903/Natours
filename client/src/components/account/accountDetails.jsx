@@ -1,10 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./accountDetails.css";
 import { selectorCurrentUser } from "../store/user/user.selector";
 import AxiosApi from "./../../axiosApi/api";
 import { useEffect, useState } from "react";
+import { updateCurrentUser } from "../store/user/user.action";
 const AccountDetails = () => {
   const currentUser = useSelector(selectorCurrentUser);
+  const dispatch = useDispatch();
   //   const photoUrl = `/img/users/${currentUser.photo}`;
 
   const [errMessage, setErrMessage] = useState(null);
@@ -35,6 +37,8 @@ const AccountDetails = () => {
             id: currentUser._id,
             photo: res.data.data.image.url,
           }).then((res) => console.log(res));
+          // change currentUser photo value
+          dispatch(updateCurrentUser(res.data.data.image.url));
         }
       );
       // .catch((err) => console.log(err));

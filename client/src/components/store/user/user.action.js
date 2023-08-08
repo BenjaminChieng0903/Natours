@@ -9,5 +9,5 @@ export const removeCurrentUser = (user) => {
 };
 
 export const updateCurrentUser = (update) => {
-  return CreateAction(USER_ACTION_TYPE.UPDATE_CURRENT_USER, update);
+  return CreateAction(USER_ACTION_TYPE.UPDATE_CURRENT_USER_PHOTO, update);
 };

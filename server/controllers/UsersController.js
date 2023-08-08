@@ -45,7 +45,7 @@ exports.uploadUserImage = async (req, res, next) => {
   const { id, photo } = req.body;
   // console.log(id);
   console.log(req.body);
-  if (req.body) {
+  if (photo) {
     await User.findByIdAndUpdate(
       id,
       { photo },
