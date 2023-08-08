@@ -37,8 +37,12 @@ exports.getUser = (req, res) => {
     data: selectedID,
   });
 };
-exports.updateUser = () => {};
+// exports.updateUser = (req, res, next) => {
+//   console.log(req.body);
+//   next();
+// };
 exports.uploadUserImage = (req, res, next) => {
+  console.log(req.file);
   if (req.file) {
     res.status(200).json({
       status: 'success',
@@ -46,6 +50,7 @@ exports.uploadUserImage = (req, res, next) => {
   } else
     res.status(400).json({
       status: 'failed',
+      message: 'Do not provide photo, please choose one',
     });
 };
 

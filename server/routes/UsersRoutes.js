@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/img/users');
+    cb(null, 'https://api.imgbb.com/1/upload');
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -54,7 +54,7 @@ userRouter.route('/forgetPassword').post(forgetPassword);
 userRouter.route('/resetPassword/:token').patch(resetPassword);
 userRouter.route('/updateMyPassword').patch(routeProtect, updatePassword);
 userRouter
-  .route('/account/upload')
+  .route('/account/updateMe')
   .post(upload.single('photo'), uploadUserImage);
 userRouter.route('/:id').get(getUser).delete(deleteUser);
 

@@ -5,15 +5,48 @@ import AxiosApi from "./../../axiosApi/api";
 import { useEffect, useState } from "react";
 const AccountDetails = () => {
   const currentUser = useSelector(selectorCurrentUser);
-  const photoUrl = `/img/users/${currentUser.photo}`;
+  //   const photoUrl = `/img/users/${currentUser.photo}`;
+
+  const [errMessage, setErrMessage] = useState(null);
+  //   const [newName, setNewName] = useState(undefined);
+  //   const [newEmail, setNewEmail] = useState(undefined);
   //   const [newPhoto, setNewPhoto] = useState(null);
   //   let formData = new FormData();
   const changeSetting = async (e) => {
     e.preventDefault();
-    await AxiosApi.post("/users/account/upload").then((res) =>
-      console.log(res.data)
-    );
+    const updateData = new FormData();
+    const photo = document.getElementById("photo").files[0];
+    const cloudImgRepoKey = "6a5875b676ce1ed298be0cc75f969e27";
+    console.log(photo);
+    // if (newName) updateData.append("name", newName);
+    // if (newEmail) updateData.append("email", newEmail);
+    if (photo) {
+      updateData.append("image", photo);
+      updateData.append("key", cloudImgRepoKey);
+      //upload image to cloud server
+      await AxiosApi.post(`https://api.imgbb.com/1/upload`, updateData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((res) => res.data.data.image.url);
+      // .catch((err) => console.log(err));
+    } else {
+      // errorHandling for back-end
+      await AxiosApi.post("/users/account/updateMe", updateData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+        .then((res) => console.log(res.data))
+        .catch((err) => setErrMessage(err.response.data.message));
+    }
   };
+  useEffect(() => {
+    if (errMessage != null) {
+      alert(errMessage);
+      setErrMessage(null);
+    }
+  }, [errMessage]);
   //   useEffect(() => {
   //     if (newPhoto != null) {
   //       formData.append("photo", newPhoto);
@@ -111,6 +144,7 @@ const AccountDetails = () => {
                     type="text"
                     value={currentUser.name}
                     required="required"
+                    // onChange={(e) => setNewName(e.target.value)}
                   />
                 </div>
                 <div className="form__group ma-bt-md">
@@ -123,12 +157,13 @@ const AccountDetails = () => {
                     type="email"
                     value={currentUser.email}
                     required="required"
+                    // onChange={(e) => setNewEmail(e.target.value)}
                   />
                 </div>
                 <div className="form__group form__photo-upload">
                   <img
                     className="form__user-photo"
-                    src={photoUrl}
+                    src={currentUser.photo}
                     alt="User photo"
                   />
                   {/* <a className="btn-text">Choose new photo</a> */}
@@ -136,13 +171,16 @@ const AccountDetails = () => {
                     action="http://localhost:8001/api/v1/users/account/upload"
                     method="post"
                     enctype="multipart/form-data"
-                  >
-                    <input
-                      type="file"
-                      name="avatar"
-                      accept="image/jpg, image/png, image/img"
-                    ></input>
-                    <input type="submit"></input>
+                  > */}
+                  <input
+                    className="form__upload"
+                    type="file"
+                    name="photo"
+                    id="photo"
+                    accept="image/jpg, image/png, image/img"
+                  ></input>
+                  <label for="photo">Choose New Photo</label>
+                  {/* <input type="submit"></input>
                   </form> */}
                 </div>
                 <div className="form__group right">
