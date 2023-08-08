@@ -1,6 +1,3 @@
-// const users = JSON.parse(
-//   fs.readFileSync(`${__dirname}/../dev-data/data/users.json`)
-// );
 const User = require('./../models/userModels');
 exports.getAllusers = (req, res) => {
   res.status(200).json({
@@ -39,6 +36,17 @@ exports.getUser = (req, res) => {
     date: new Date(),
     data: selectedID,
   });
+};
+exports.updateUser = () => {};
+exports.uploadUserImage = (req, res, next) => {
+  if (req.file) {
+    res.status(200).json({
+      status: 'success',
+    });
+  } else
+    res.status(400).json({
+      status: 'failed',
+    });
 };
 
 exports.deleteUser = (req, res) => {};

@@ -1,9 +1,24 @@
 import { useSelector } from "react-redux";
 import "./accountDetails.css";
 import { selectorCurrentUser } from "../store/user/user.selector";
+import AxiosApi from "./../../axiosApi/api";
+import { useEffect, useState } from "react";
 const AccountDetails = () => {
   const currentUser = useSelector(selectorCurrentUser);
   const photoUrl = `/img/users/${currentUser.photo}`;
+  //   const [newPhoto, setNewPhoto] = useState(null);
+  //   let formData = new FormData();
+  const changeSetting = async (e) => {
+    e.preventDefault();
+    await AxiosApi.post("/users/account/upload").then((res) =>
+      console.log(res.data)
+    );
+  };
+  //   useEffect(() => {
+  //     if (newPhoto != null) {
+  //       formData.append("photo", newPhoto);
+  //     }
+  //   }, [newPhoto]);
   return (
     <>
       <main className="main">
@@ -116,10 +131,25 @@ const AccountDetails = () => {
                     src={photoUrl}
                     alt="User photo"
                   />
-                  <a className="btn-text">Choose new photo</a>
+                  {/* <a className="btn-text">Choose new photo</a> */}
+                  {/* <form
+                    action="http://localhost:8001/api/v1/users/account/upload"
+                    method="post"
+                    enctype="multipart/form-data"
+                  >
+                    <input
+                      type="file"
+                      name="avatar"
+                      accept="image/jpg, image/png, image/img"
+                    ></input>
+                    <input type="submit"></input>
+                  </form> */}
                 </div>
                 <div className="form__group right">
-                  <button className="btn btn--small btn--green">
+                  <button
+                    className="btn btn--small btn--green"
+                    onClick={changeSetting}
+                  >
                     Save settings
                   </button>
                 </div>
