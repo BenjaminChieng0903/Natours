@@ -10,19 +10,20 @@ const AccountDetails = () => {
   //   const photoUrl = `/img/users/${currentUser.photo}`;
 
   const [errMessage, setErrMessage] = useState(null);
-  //   const [newName, setNewName] = useState(undefined);
-  //   const [newEmail, setNewEmail] = useState(undefined);
-  //   const [newPhoto, setNewPhoto] = useState(null);
-  //   let formData = new FormData();
+  const [name, setName] = useState(undefined);
   const changeSetting = async (e) => {
     e.preventDefault();
     const updateData = new FormData();
     const photo = document.getElementById("photo").files[0];
     const cloudImgRepoKey = "6a5875b676ce1ed298be0cc75f969e27";
+
     console.log(photo);
     // if (newName) updateData.append("name", newName);
     // if (newEmail) updateData.append("email", newEmail);
+
+    //photo updated
     if (photo) {
+      // if indeed has update photo, we need to send request to cloud img server which consider photo field as required.
       updateData.append("image", photo);
       updateData.append("key", cloudImgRepoKey);
       //upload image to cloud server
@@ -33,25 +34,36 @@ const AccountDetails = () => {
       }).then(
         //change photo value in db
         async (res) => {
-          await AxiosApi.post("/users/account/updateMe", {
+          await AxiosApi.patch("/users/account/updateMe", {
             id: currentUser._id,
             photo: res.data.data.image.url,
+            name,
           }).then((res) => console.log(res));
           // change currentUser photo value
           dispatch(updateCurrentUser(res.data.data.image.url));
         }
       );
-      // .catch((err) => console.log(err));
     } else {
-      // errorHandling for back-end
-      await AxiosApi.post("/users/account/updateMe", updateData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      console.log(name);
+      //if no photo or name, their default value is undefined which will not be shown on request body
+      await AxiosApi.patch("/users/account/updateMe", {
+        id: currentUser._id,
+        name,
       })
-        .then((res) => console.log(res.data))
+        .then((res) => console.log(res))
         .catch((err) => setErrMessage(err.response.data.message));
     }
+    // .catch((err) => console.log(err));
+    // else {
+    //   // errorHandling for back-end
+    //   await AxiosApi.patch("/users/account/updateMe", updateData, {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   })
+    //     .then((res) => console.log(res.data))
+    //     .catch((err) => setErrMessage(err.response.data.message));
+    // }
   };
   useEffect(() => {
     if (errMessage != null) {
@@ -154,8 +166,12 @@ const AccountDetails = () => {
                     className="form__input"
                     id="name"
                     type="text"
-                    value={currentUser.name}
+                    placeholder={currentUser.name}
                     required="required"
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+
                     // onChange={(e) => setNewName(e.target.value)}
                   />
                 </div>
@@ -169,6 +185,7 @@ const AccountDetails = () => {
                     type="email"
                     value={currentUser.email}
                     required="required"
+                    disabled
                     // onChange={(e) => setNewEmail(e.target.value)}
                   />
                 </div>

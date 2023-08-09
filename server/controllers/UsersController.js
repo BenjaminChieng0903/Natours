@@ -1,3 +1,5 @@
+const AppError = require('../utils/appError');
+const catchAsync = require('../utils/catchAsync');
 const User = require('./../models/userModels');
 exports.getAllusers = (req, res) => {
   res.status(200).json({
@@ -41,27 +43,34 @@ exports.getUser = (req, res) => {
 //   console.log(req.body);
 //   next();
 // };
-exports.uploadUserImage = async (req, res, next) => {
-  const { id, photo } = req.body;
-  // console.log(id);
+exports.updateCheck = catchAsync(async (req, res, next) => {
   console.log(req.body);
-  if (photo) {
-    await User.findByIdAndUpdate(
-      id,
-      { photo },
-      {
-        new: true,
-        runValidators: true,
-      }
+  // console.log(Object.keys(req.body).length);
+  if (Object.keys(req.body).length === 1) {
+    return next(
+      new AppError('No update, please change photo or name again', 400)
     );
-    res.status(200).json({
-      status: 'success',
-    });
-  } else
-    res.status(400).json({
-      status: 'failed',
-      message: 'Do not provide photo, please choose one',
-    });
+  }
+  next();
+});
+
+exports.updateMe = async (req, res, next) => {
+  const { id } = req.body;
+  console.log(req.body);
+
+  await User.findByIdAndUpdate(id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(200).json({
+    status: 'success',
+  });
+
+  // else
+  //   res.status(400).json({
+  //     status: 'failed',
+  //     message: 'Do not provide photo, please choose one',
+  //   });
 };
 
 exports.deleteUser = (req, res) => {};
