@@ -4,6 +4,7 @@ import { selectorCurrentUser } from "../store/user/user.selector";
 import AxiosApi from "./../../axiosApi/api";
 import { useEffect, useState } from "react";
 import { updateCurrentUser } from "../store/user/user.action";
+
 const AccountDetails = () => {
   const currentUser = useSelector(selectorCurrentUser);
   const dispatch = useDispatch();
@@ -39,31 +40,28 @@ const AccountDetails = () => {
             photo: res.data.data.image.url,
             name,
           }).then((res) => console.log(res));
+          //TODO NAME DUPLICATE ERROR
           // change currentUser photo value
-          dispatch(updateCurrentUser(res.data.data.image.url));
+          //if name not be updated, then just update photo, otherwise update both
+          name
+            ? dispatch(updateCurrentUser(res.data.data.image.url, name))
+            : dispatch(updateCurrentUser(res.data.data.image.url));
         }
       );
     } else {
       console.log(name);
-      //if no photo or name, their default value is undefined which will not be shown on request body
+      //if name is not be updated, its default value is undefined which will not be shown on request body
+      //then the back-end will throw error that catch by catch block.
       await AxiosApi.patch("/users/account/updateMe", {
         id: currentUser._id,
         name,
       })
         .then((res) => console.log(res))
         .catch((err) => setErrMessage(err.response.data.message));
+      //update currentUser
+      //if name updates, update name in currentUser as well, otherwise do nothing
+      name ? dispatch(updateCurrentUser(name)) : setName(undefined);
     }
-    // .catch((err) => console.log(err));
-    // else {
-    //   // errorHandling for back-end
-    //   await AxiosApi.patch("/users/account/updateMe", updateData, {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   })
-    //     .then((res) => console.log(res.data))
-    //     .catch((err) => setErrMessage(err.response.data.message));
-    // }
   };
   useEffect(() => {
     if (errMessage != null) {

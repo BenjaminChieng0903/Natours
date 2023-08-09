@@ -46,6 +46,8 @@ exports.getUser = (req, res) => {
 exports.updateCheck = catchAsync(async (req, res, next) => {
   console.log(req.body);
   // console.log(Object.keys(req.body).length);
+  //If name and photo are all undefined, it will not show up in the body. In this case,
+  //the req.body only contain id. And this means do nothing.
   if (Object.keys(req.body).length === 1) {
     return next(
       new AppError('No update, please change photo or name again', 400)
