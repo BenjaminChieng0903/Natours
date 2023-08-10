@@ -11,3 +11,6 @@ export const removeCurrentUser = (user) => {
 export const updateCurrentUser = (...update) => {
   return CreateAction(USER_ACTION_TYPE.UPDATE_CURRENT_USER_PHOTO, update);
 };
+export const updateCurrentUserToken = (token) => {
+  return CreateAction(USER_ACTION_TYPE.UPDATE_CURRENT_SUER_TOKEN, token);
+};

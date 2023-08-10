@@ -195,8 +195,8 @@ exports.restrictedRole = (...roles) => {
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
   //   console.log(req.currentUser._id);
-  console.log(req.body);
-  console.log(req.currentUser);
+  // console.log(req.body);
+  // console.log(req.currentUser);
   // Object.keys(req.body)
   if (Object.keys(req.body).length !== 3) {
     return next(new AppError('please fill all fields before submit', 400));

@@ -3,7 +3,10 @@ import "./accountDetails.css";
 import { selectorCurrentUser } from "../store/user/user.selector";
 import AxiosApi from "./../../axiosApi/api";
 import { useEffect, useState } from "react";
-import { updateCurrentUser } from "../store/user/user.action";
+import {
+  updateCurrentUser,
+  updateCurrentUserToken,
+} from "../store/user/user.action";
 
 const AccountDetails = () => {
   const currentUser = useSelector(selectorCurrentUser);
@@ -77,13 +80,27 @@ const AccountDetails = () => {
   //       formData.append("photo", newPhoto);
   //     }
   //   }, [newPhoto]);
-  const updatePassword = async () => {
-    await AxiosApi.patch("users/account/updateMyPassword", {
-      currentPassword,
-      password: newPassword,
-      passwordConfirm: confirmPassword,
-    })
-      .then((res) => console.log(res))
+  const updatePassword = async (e) => {
+    e.preventDefault();
+    await AxiosApi.patch(
+      "users/account/updateMyPassword",
+      {
+        currentPassword,
+        password: newPassword,
+        passwordConfirm: confirmPassword,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${currentUser.token}`,
+        },
+      }
+    )
+      .then((res) => {
+        console.log(res.data);
+        //changeTokenAfterChangePassword
+
+        dispatch(updateCurrentUserToken(res.data.token));
+      })
       .catch((err) => setErrMessage(err.response.data.message));
   };
   return (
