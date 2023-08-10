@@ -18,11 +18,11 @@ const Login = () => {
       password,
     })
       .then((res) => {
-        // console.log(res.data.user._id);
+        const token = res.data.token;
         const { role, name, email, photo, _id } = res.data.user;
 
         alert("login successfully");
-        dispatch(setCurrentUser({ role, name, email, photo, _id }));
+        dispatch(setCurrentUser({ role, name, email, photo, _id, token }));
         navigate("/");
       })
       .catch((err) => {
