@@ -195,6 +195,12 @@ exports.restrictedRole = (...roles) => {
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
   //   console.log(req.currentUser._id);
+  console.log(req.body);
+  console.log(req.currentUser);
+  // Object.keys(req.body)
+  if (Object.keys(req.body).length !== 3) {
+    return next(new AppError('please fill all fields before submit', 400));
+  }
   const searchedUser = await User.findById({ _id: req.currentUser._id });
   //1. check if current password correct
   if (!bcrypt.compare(req.body.currentPassword, searchedUser.password)) {
@@ -202,6 +208,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
       new AppError('current password is wrong, please try again!', 403)
     );
   }
+  // if(req.body)
   //2. update password
   searchedUser.password = req.body.password;
   searchedUser.passwordConfirm = req.body.passwordConfirm;

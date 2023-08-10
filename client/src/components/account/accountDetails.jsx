@@ -12,6 +12,9 @@ const AccountDetails = () => {
 
   const [errMessage, setErrMessage] = useState(null);
   const [name, setName] = useState(undefined);
+  const [currentPassword, setCurrentPassword] = useState();
+  const [newPassword, setNewPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
   const changeSetting = async (e) => {
     e.preventDefault();
     const updateData = new FormData();
@@ -74,6 +77,15 @@ const AccountDetails = () => {
   //       formData.append("photo", newPhoto);
   //     }
   //   }, [newPhoto]);
+  const updatePassword = async () => {
+    await AxiosApi.patch("users/account/updateMyPassword", {
+      currentPassword,
+      password: newPassword,
+      passwordConfirm: confirmPassword,
+    })
+      .then((res) => console.log(res))
+      .catch((err) => setErrMessage(err.response.data.message));
+  };
   return (
     <>
       <main className="main">
@@ -235,6 +247,9 @@ const AccountDetails = () => {
                     placeholder="••••••••"
                     required="required"
                     minlength="8"
+                    onChange={(e) => {
+                      setCurrentPassword(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="form__group">
@@ -248,6 +263,9 @@ const AccountDetails = () => {
                     placeholder="••••••••"
                     required="required"
                     minlength="8"
+                    onChange={(e) => {
+                      setNewPassword(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="form__group ma-bt-lg">
@@ -261,10 +279,16 @@ const AccountDetails = () => {
                     placeholder="••••••••"
                     required="required"
                     minlength="8"
+                    onChange={(e) => {
+                      setConfirmPassword(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="form__group right">
-                  <button className="btn btn--small btn--green">
+                  <button
+                    className="btn btn--small btn--green"
+                    onClick={updatePassword}
+                  >
                     Save password
                   </button>
                 </div>

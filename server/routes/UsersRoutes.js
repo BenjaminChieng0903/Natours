@@ -52,7 +52,9 @@ userRouter.route('/').get(getAllusers).post(signup);
 userRouter.route('/login').post(login);
 userRouter.route('/forgetPassword').post(forgetPassword);
 userRouter.route('/resetPassword/:token').patch(resetPassword);
-userRouter.route('/updateMyPassword').patch(routeProtect, updatePassword);
+userRouter
+  .route('/account/updateMyPassword')
+  .patch(routeProtect, updatePassword);
 userRouter.route('/account/updateMe').patch(updateCheck, updateMe);
 userRouter.route('/:id').get(getUser).delete(deleteUser);
 
