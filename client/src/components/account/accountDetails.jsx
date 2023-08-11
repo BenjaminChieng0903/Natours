@@ -80,11 +80,13 @@ const AccountDetails = () => {
         .then((res) => {
           console.log(res);
           alert("update  successfully");
+          //update currentUser
+          name ? dispatch(updateCurrentUser(name)) : setName(undefined);
         })
         .catch((err) => setErrMessage(err.response.data.message));
-      //update currentUser
+
       //if name updates, update name in currentUser as well, otherwise do nothing
-      name ? dispatch(updateCurrentUser(name)) : setName(undefined);
+      //   name ? dispatch(updateCurrentUser(name)) : setName(undefined);
     }
   };
   useEffect(() => {

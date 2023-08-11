@@ -81,19 +81,13 @@ const NavigationBar = () => {
                 Log out
               </button>
               <a
-                onClick={() =>
-                  console.log("this will redirect to account page")
-                }
+                onClick={() => {
+                  navigate("/users/account");
+                }}
                 class="nav__el"
               >
                 <img src={photoUrl} alt={name} class="nav__user-img" />
-                <span
-                  onClick={() => {
-                    navigate("/users/account");
-                  }}
-                >
-                  {name}
-                </span>
+                <span>{name}</span>
               </a>
             </>
           )}

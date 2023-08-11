@@ -4,6 +4,7 @@ import "./home.scss";
 import AxiosApi from "../../../axiosApi/api";
 import { useDispatch, useSelector } from "react-redux";
 import { FetchToursSuccess } from "../../store/tours/tours.action";
+import { removeCardDetailsIndex } from "../../store/tours/tours.action";
 
 // import "./../../css/styles.css";
 // get all tour data from server
@@ -21,12 +22,14 @@ const Home = () => {
     };
 
     getAlltours();
+    //remove card index for specific card details
+    dispatch(removeCardDetailsIndex(null));
   }, []);
   return (
     <main className="main">
       <div className="card-container">
-        {categories.map((item) => (
-          <Card categories={item} />
+        {categories.map((item, index) => (
+          <Card key={item.name} categories={item} index={index} />
         ))}
       </div>
     </main>

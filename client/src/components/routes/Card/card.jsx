@@ -1,8 +1,12 @@
 // import "./../../css/styles.css";
 import { useNavigate } from "react-router-dom";
 import "./card.scss";
-const Card = ({ categories }) => {
+import { useDispatch } from "react-redux";
+import { setCurrentCardDetailsIndex } from "../../store/tours/tours.action";
+const Card = ({ categories, index }) => {
   // console.log(categories);
+  console.log(index);
+  const dispatch = useDispatch();
   const {
     difficulty,
     duration,
@@ -86,7 +90,10 @@ const Card = ({ categories }) => {
         </p>
         <button
           className="btn btn--green btn--small"
-          onClick={() => navigate("/details")}
+          onClick={() => {
+            dispatch(setCurrentCardDetailsIndex(index));
+            navigate("/details");
+          }}
         >
           Details
         </button>

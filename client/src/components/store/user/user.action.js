@@ -14,3 +14,7 @@ export const updateCurrentUser = (...update) => {
 export const updateCurrentUserToken = (token) => {
   return CreateAction(USER_ACTION_TYPE.UPDATE_CURRENT_SUER_TOKEN, token);
 };
+
+export const setCurrentCardDetailsIndex = (index) => {
+  return CreateAction(USER_ACTION_TYPE.SET_CURRENT_CARD_DETAILS_INDEX, index);
+};
