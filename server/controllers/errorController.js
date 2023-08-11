@@ -26,7 +26,7 @@ const JwtError = (err) => {
   return new AppError(err.message, 401);
 };
 const JwtExpiredError = (err) => {
-  return new AppError(err.message, 400);
+  return new AppError(`${err.message}, please login again`, 400);
 };
 exports.globalErrorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;

@@ -55,7 +55,9 @@ userRouter.route('/resetPassword/:token').patch(resetPassword);
 userRouter
   .route('/account/updateMyPassword')
   .patch(routeProtect, updatePassword);
-userRouter.route('/account/updateMe').patch(updateCheck, updateMe);
+userRouter
+  .route('/account/updateMe')
+  .patch(routeProtect, updateCheck, updateMe);
 userRouter.route('/:id').get(getUser).delete(deleteUser);
 
 module.exports = userRouter;

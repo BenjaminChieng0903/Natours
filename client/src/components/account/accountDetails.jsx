@@ -37,6 +37,7 @@ const AccountDetails = () => {
       await AxiosApi.post(`https://api.imgbb.com/1/upload`, updateData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${currentUser.token}`,
         },
       }).then(
         //change photo value in db
@@ -45,7 +46,10 @@ const AccountDetails = () => {
             id: currentUser._id,
             photo: res.data.data.image.url,
             name,
-          }).then((res) => console.log(res));
+          }).then((res) => {
+            console.log(res);
+            alert("update successfully ");
+          });
           //TODO NAME DUPLICATE ERROR
           // change currentUser photo value
           //if name not be updated, then just update photo, otherwise update both
@@ -58,11 +62,22 @@ const AccountDetails = () => {
       console.log(name);
       //if name is not be updated, its default value is undefined which will not be shown on request body
       //then the back-end will throw error that catch by catch block.
-      await AxiosApi.patch("/users/account/updateMe", {
-        id: currentUser._id,
-        name,
-      })
-        .then((res) => console.log(res))
+      await AxiosApi.patch(
+        "/users/account/updateMe",
+        {
+          id: currentUser._id,
+          name,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.token}`,
+          },
+        }
+      )
+        .then((res) => {
+          console.log(res);
+          alert("update  successfully");
+        })
         .catch((err) => setErrMessage(err.response.data.message));
       //update currentUser
       //if name updates, update name in currentUser as well, otherwise do nothing
@@ -100,8 +115,12 @@ const AccountDetails = () => {
         //changeTokenAfterChangePassword
 
         dispatch(updateCurrentUserToken(res.data.token));
+        alert("update Password successfully");
       })
-      .catch((err) => setErrMessage(err.response.data.message));
+      .catch((err) => {
+        console.log(err.response.data);
+        setErrMessage(err.response.data.message);
+      });
   };
   return (
     <>
