@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentCardDetailsIndex } from "../../store/tours/tours.action";
 import AxiosApi from "./../../../axiosApi/api";
 import { selectorTours } from "../../store/tours/tours.selector";
+import { SetTourReviews } from "../../store/reviews/reviews.action";
 const Card = ({ categories, index }) => {
   // console.log(categories);
   console.log(index);
@@ -103,6 +104,7 @@ const Card = ({ categories, index }) => {
 
             await AxiosApi.get(`/reviews/${categories._id}`).then((res) => {
               console.log(res.data.data.reviews);
+              dispatch(SetTourReviews(res.data.data.reviews));
             });
             navigate("/details");
           }}

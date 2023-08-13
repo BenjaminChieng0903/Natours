@@ -1,0 +1,3 @@
+export const REVIEWS_ACTION_TYPE = {
+  SET_TOUR_REVIEWS: "SET_TOUR_REVIEWS",
+};

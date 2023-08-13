@@ -5,11 +5,15 @@ import {
   selectorCardIndex,
   selectorTours,
 } from "../store/tours/tours.selector";
+import { selectorReviews } from "../store/reviews/reviews.selector";
+import ReviewCard from "./reviewCard";
 // import { url } from "inspector";
 const TourDetails = () => {
   const cardIndex = useSelector(selectorCardIndex);
+  const reviews = useSelector(selectorReviews);
   const tours = useSelector(selectorTours);
   const tour = tours.data[cardIndex];
+
   // console.log(tour);
   const convertDateFormat = () => {
     const dateObject = new Date(tour.startDates[0]);
@@ -273,58 +277,9 @@ const TourDetails = () => {
 
       <section className="section-reviews">
         <div className="reviews">
-          <div className="reviews__card">
-            <div className="reviews__avatar">
-              <img
-                src="img/users/user-7.jpg"
-                alt="Jim Brown"
-                className="reviews__avatar-img"
-              />
-              <h6 className="reviews__user">Jim Brown</h6>
-            </div>
-            <p className="reviews__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-              dignissimos sint quo commodi corrupti accusantium veniam saepe
-              numquam.
-            </p>
-            <div className="reviews__rating">
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-cta">
-        <div className="cta">
-          <div className="cta__img cta__img--logo">
-            <img src="img/logo-white.png" alt="Natours logo" className="" />
-          </div>
-          <img src="img/tour-5-2.jpg" alt="" className="cta__img cta__img--1" />
-          <img src="img/tour-5-1.jpg" alt="" className="cta__img cta__img--2" />
-
-          <div className="cta__content">
-            <h2 className="heading-secondary">What are you waiting for?</h2>
-            <p className="cta__text">
-              10 days. 1 adventure. Infinite memories. Make it yours today!
-            </p>
-            <button className="btn btn--green span-all-rows">
-              Book tour now!
-            </button>
-          </div>
+          {reviews.map((review) => {
+            return <ReviewCard review={review} />;
+          })}
         </div>
       </section>
     </>

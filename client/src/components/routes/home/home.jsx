@@ -3,8 +3,12 @@ import Card from "../Card/card";
 import "./home.scss";
 import AxiosApi from "../../../axiosApi/api";
 import { useDispatch, useSelector } from "react-redux";
-import { FetchToursSuccess } from "../../store/tours/tours.action";
+import {
+  FetchToursSuccess,
+  setCurrentCardDetailsIndex,
+} from "../../store/tours/tours.action";
 import { removeCardDetailsIndex } from "../../store/tours/tours.action";
+import { SetTourReviews } from "../../store/reviews/reviews.action";
 
 // import "./../../css/styles.css";
 // get all tour data from server
@@ -23,7 +27,9 @@ const Home = () => {
 
     getAlltours();
     //remove card index for specific card details
-    dispatch(removeCardDetailsIndex(null));
+    dispatch(setCurrentCardDetailsIndex(null));
+    //remove corresponding tour's reviews
+    dispatch(SetTourReviews(null));
   }, []);
   return (
     <main className="main">
