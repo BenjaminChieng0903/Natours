@@ -5,7 +5,6 @@ import {
   selectorCardIndex,
   selectorTours,
 } from "../store/tours/tours.selector";
-import { removeCardDetailsIndex } from "../store/tours/tours.action";
 // import { url } from "inspector";
 const TourDetails = () => {
   const cardIndex = useSelector(selectorCardIndex);
@@ -99,34 +98,19 @@ const TourDetails = () => {
 
             <div className="overview-box__group">
               <h2 className="heading-secondary ma-bt-lg">Your tour guides</h2>
-
-              <div className="overview-box__detail">
-                <img
-                  src="img/users/user-19.jpg"
-                  alt="Lead guide"
-                  className="overview-box__img"
-                />
-                <span className="overview-box__label">Lead guide</span>
-                <span className="overview-box__text">Steven Miller</span>
-              </div>
-              <div className="overview-box__detail">
-                <img
-                  src="img/users/user-18.jpg"
-                  alt="Tour guide"
-                  className="overview-box__img"
-                />
-                <span className="overview-box__label">Tour guide</span>
-                <span className="overview-box__text">Lisa Brown</span>
-              </div>
-              <div className="overview-box__detail">
-                <img
-                  src="img/users/user-17.jpg"
-                  alt="Intern"
-                  className="overview-box__img"
-                />
-                <span className="overview-box__label">Intern</span>
-                <span className="overview-box__text">Max Smith</span>
-              </div>
+              {tour.guides.map((guide) => {
+                return (
+                  <div className="overview-box__detail">
+                    <img
+                      src={`img/users/${guide.photo}`}
+                      alt={guide.role}
+                      className="overview-box__img"
+                    />
+                    <span className="overview-box__label">{guide.role}</span>
+                    <span className="overview-box__text">{guide.name}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -316,137 +300,6 @@ const TourDetails = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
               dignissimos sint quo commodi corrupti accusantium veniam saepe
               numquam.
-            </p>
-            <div className="reviews__rating">
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-            </div>
-          </div>
-
-          <div className="reviews__card">
-            <div className="reviews__avatar">
-              <img
-                src="img/users/user-14.jpg"
-                alt="Laura Wilson"
-                className="reviews__avatar-img"
-              />
-              <h6 className="reviews__user">Laura Wilson</h6>
-            </div>
-            <p className="reviews__text">
-              Veniam adipisci blanditiis, corporis sit magnam aperiam ad, fuga
-              reiciendis provident deleniti cumque similique itaque animi,
-              sapiente obcaecati beatae accusantium.
-            </p>
-            <div className="reviews__rating">
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--inactive">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-            </div>
-          </div>
-
-          <div className="reviews__card">
-            <div className="reviews__avatar">
-              <img
-                src="img/users/user-15.jpg"
-                alt="Ben Hadley"
-                className="reviews__avatar-img"
-              />
-              <h6 className="reviews__user">Ben Hadley</h6>
-            </div>
-            <p className="reviews__text">
-              Debitis, nesciunt itaque! At quis officia natus. Suscipit,
-              reprehenderit blanditiis mollitia distinctio ducimus porro tempore
-              perspiciatis sunt vel.
-            </p>
-            <div className="reviews__rating">
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-            </div>
-          </div>
-
-          <div className="reviews__card">
-            <div className="reviews__avatar">
-              <img
-                src="img/users/user-6.jpg"
-                alt="Alexander Jones"
-                className="reviews__avatar-img"
-              />
-              <h6 className="reviews__user">Alexander Jones</h6>
-            </div>
-            <p className="reviews__text">
-              Quaerat laborum eveniet ut aut maiores doloribus mollitia aperiam
-              quis praesentium sed inventore harum aliquam veritatis at adipisci
-              ea assumenda!
-            </p>
-            <div className="reviews__rating">
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-              <svg className="reviews__star reviews__star--active">
-                <use href="img/icons.svg#icon-star"></use>
-              </svg>
-            </div>
-          </div>
-
-          <div className="reviews__card">
-            <div className="reviews__avatar">
-              <img
-                src="img/users/user-3.jpg"
-                alt="Ayla Cornell"
-                className="reviews__avatar-img"
-              />
-              <h6 className="reviews__user">Ayla Cornell</h6>
-            </div>
-            <p className="reviews__text">
-              Perferendis quo aliquid iste quas laboriosam molestias illo est
-              voluptatem odit ea. Vero placeat culpa provident dicta maiores!
             </p>
             <div className="reviews__rating">
               <svg className="reviews__star reviews__star--active">
