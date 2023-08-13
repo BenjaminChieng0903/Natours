@@ -1,11 +1,17 @@
 // import "./../../css/styles.css";
 import { useNavigate } from "react-router-dom";
 import "./card.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentCardDetailsIndex } from "../../store/tours/tours.action";
+import AxiosApi from "./../../../axiosApi/api";
+import { selectorTours } from "../../store/tours/tours.selector";
 const Card = ({ categories, index }) => {
   // console.log(categories);
   console.log(index);
+  console.log(categories._id);
+  // console.log(categories);
+  // const tour = categories[index];
+  // console.log(tour);
   const dispatch = useDispatch();
   const {
     difficulty,
@@ -90,8 +96,14 @@ const Card = ({ categories, index }) => {
         </p>
         <button
           className="btn btn--green btn--small"
-          onClick={() => {
+          onClick={async () => {
+            //store the corresponding tour index so that can get its data and show its details on details page
             dispatch(setCurrentCardDetailsIndex(index));
+            //search all the reviews that related to this tour and store them into Redux.
+
+            await AxiosApi.get(`/reviews/${categories._id}`).then((res) => {
+              console.log(res.data.data.reviews);
+            });
             navigate("/details");
           }}
         >

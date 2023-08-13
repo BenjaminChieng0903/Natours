@@ -72,6 +72,13 @@ const tourSchema = new mongoose.Schema({
   guides: [{ type: mongoose.Schema.ObjectId, ref: 'User', required: [true] }],
 });
 
+tourSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'guides',
+    select: 'name role photo',
+  });
+  next();
+});
 const Tour = mongoose.model('Tour', tourSchema);
 
 module.exports = Tour;
