@@ -10,14 +10,17 @@ import { removeCardDetailsIndex } from "../store/tours/tours.action";
 const TourDetails = () => {
   const cardIndex = useSelector(selectorCardIndex);
   const tours = useSelector(selectorTours);
-  const dispatch = useDispatch();
-  // console.log(cardIndex, tours);
   const tour = tours.data[cardIndex];
   console.log(tour);
-
+  const convertDateFormat = () => {
+    const dateObject = new Date(tour.startDates[0]);
+    const options = { year: "numeric", month: "short", timeZone: "UTC" };
+    const formattedDate = dateObject.toLocaleString("en-AU", options);
+    console.log(formattedDate);
+    return formattedDate;
+  };
   useEffect(() => {
     // const tour = tours[cardIndex];
-    // dispatch(removeCardDetailsIndex(null));
   }, []);
 
   return (
@@ -65,28 +68,32 @@ const TourDetails = () => {
                   <use href="img/icons.svg#icon-calendar"></use>
                 </svg>
                 <span className="overview-box__label">Next date</span>
-                <span className="overview-box__text">August 2021</span>
+                <span className="overview-box__text">
+                  {convertDateFormat()}
+                </span>
               </div>
               <div className="overview-box__detail">
                 <svg className="overview-box__icon">
                   <use href="img/icons.svg#icon-trending-up"></use>
                 </svg>
                 <span className="overview-box__label">Difficulty</span>
-                <span className="overview-box__text">Medium</span>
+                <span className="overview-box__text">{tour.difficulty}</span>
               </div>
               <div className="overview-box__detail">
                 <svg className="overview-box__icon">
                   <use href="img/icons.svg#icon-user"></use>
                 </svg>
                 <span className="overview-box__label">Participants</span>
-                <span className="overview-box__text">10 people</span>
+                <span className="overview-box__text">{tour.maxGroupSize}</span>
               </div>
               <div className="overview-box__detail">
                 <svg className="overview-box__icon">
                   <use href="img/icons.svg#icon-star"></use>
                 </svg>
                 <span className="overview-box__label">Rating</span>
-                <span className="overview-box__text">4.9 / 5</span>
+                <span className="overview-box__text">
+                  {tour.ratingsAverage} / 5
+                </span>
               </div>
             </div>
 
@@ -149,21 +156,21 @@ const TourDetails = () => {
         <div className="picture-box">
           <img
             className="picture-box__img picture-box__img--1"
-            src="img/tour-5-1.jpg"
+            src={`img/tours/${tour.images[0]}`}
             alt="The Park Camper Tour 1"
           />
         </div>
         <div className="picture-box">
           <img
             className="picture-box__img picture-box__img--2"
-            src="img/tour-5-2.jpg"
+            src={`img/tours/${tour.images[1]}`}
             alt="The Park Camper Tour 1"
           />
         </div>
         <div className="picture-box">
           <img
             className="picture-box__img picture-box__img--3"
-            src="img/tour-5-3.jpg"
+            src={`img/tours/${tour.images[2]}`}
             alt="The Park Camper Tour 1"
           />
         </div>
