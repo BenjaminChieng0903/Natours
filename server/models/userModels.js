@@ -52,6 +52,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
   },
 });
+//Save middleware
 //encrypt password after change the password or create the new document
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();

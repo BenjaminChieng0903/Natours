@@ -69,6 +69,7 @@ const tourSchema = new mongoose.Schema({
       day: { type: Number },
     },
   ],
+  guides: [{ type: mongoose.Schema.ObjectId, ref: 'User', required: [true] }],
 });
 
 const Tour = mongoose.model('Tour', tourSchema);
