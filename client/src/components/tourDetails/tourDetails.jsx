@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "./tourDetails.css";
 import { useDispatch, useSelector } from "react-redux";
+import Map from "./../mapbox/map";
 import {
   selectorCardIndex,
   selectorTours,
@@ -149,137 +150,30 @@ const TourDetails = () => {
           />
         </div>
       </section>
-
       <section className="section-map">
-        <div id="map"></div>
-        {/* <script>
-          mapboxgl.accessToken =
-            'pk.eyJ1Ijoiam9uYXNzY2htZWR0bWFubiIsImEiOiJjam54ZmM5N3gwNjAzM3dtZDNxYTVlMnd2In0.ytpI7V7w7cyT1Kq5rT9Z1A';
-  
-          const geojson = {
-            type: 'FeatureCollection',
-            features: [
-              {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [-112.987418, 37.198125]
-                },
-                properties: {
-                  description: 'Zion Canyon National Park'
-                }
-              },
-              {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [-111.376161, 36.86438]
-                },
-                properties: {
-                  description: 'Antelope Canyon'
-                }
-              },
-              {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [-112.115763, 36.058973]
-                },
-                properties: {
-                  description: 'Grand Canyon National Park'
-                }
-              },
-              {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [-116.107963, 34.011646]
-                },
-                properties: {
-                  description: 'Joshua Tree National Park'
-                }
-              }
-            ]
-          };
-  
-          const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/jonasschmedtmann/cjnxfn3zk7bj52rpegdltx58h',
-            scrollZoom: false
-          });
-  
-          const bounds = new mapboxgl.LngLatBounds();
-  
-          geojson.features.forEach(function(marker) {
-            var el = document.createElement('div');
-            el.className = 'marker';
-  
-            new mapboxgl.Marker({
-              element: el,
-              anchor: 'bottom'
-            })
-              .setLngLat(marker.geometry.coordinates)
-              .addTo(map);
-  
-            new mapboxgl.Popup({
-              offset: 30,
-              closeOnClick: false
-            })
-              .setLngLat(marker.geometry.coordinates)
-              .setHTML('<p>' + marker.properties.description + '</p>')
-              .addTo(map);
-  
-            bounds.extend(marker.geometry.coordinates);
-          });
-  
-          map.fitBounds(bounds, {
-            padding: {
-              top: 200,
-              bottom: 150,
-              left: 50,
-              right: 50
-            }
-          });
-  
-          map.on('load', function() {
-            map.addLayer({
-              id: 'route',
-              type: 'line',
-              source: {
-                type: 'geojson',
-                data: {
-                  type: 'Feature',
-                  properties: {},
-                  geometry: {
-                    type: 'LineString',
-                    coordinates: [
-                      [-112.987418, 37.198125],
-                      [-111.376161, 36.86438],
-                      [-112.115763, 36.058973],
-                      [-116.107963, 34.011646]
-                    ]
-                  }
-                }
-              },
-              layout: {
-                'line-join': 'round',
-                'line-cap': 'round'
-              },
-              paint: {
-                'line-color': '#55c57a',
-                'line-opacity': 0.6,
-                'line-width': 3
-              }
-            });
-          });
-        </script> */}
+        <Map />
       </section>
-
       <section className="section-reviews">
         <div className="reviews">
           {reviews.map((review) => {
             return <ReviewCard review={review} />;
           })}
+        </div>
+      </section>
+      <section class="section-cta">
+        <div class="cta">
+          <div class="cta__img cta__img--logo">
+            <img src="/img/logo-white.png" alt="Natours logo" />
+          </div>
+          <img class="cta__img cta__img--1" src="/img/tour-5-2.jpg" alt="" />
+          <img class="cta__img cta__img--2" src="/img/tour-5-1.jpg" alt="" />
+          <div class="cta__content">
+            <h2 class="heading-secondary">What are you waiting for?</h2>
+            <p class="cta__text">
+              {`${tour.duration} days. ${tour.locations.length} adventure. Infinite memories. Make it yours today!`}
+            </p>
+            <button class="btn btn--green span-all-rows">Book tour now!</button>
+          </div>
         </div>
       </section>
     </>
