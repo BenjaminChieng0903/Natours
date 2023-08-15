@@ -1,7 +1,7 @@
 import "./reviewCard.css";
 
 const ReviewCard = ({ review }) => {
-  console.log(review);
+  //   console.log(review);
   const ratingArr = [];
   for (let i = 0; i < review.rating; i++) {
     ratingArr.push(
@@ -10,7 +10,7 @@ const ReviewCard = ({ review }) => {
       </svg>
     );
   }
-  console.log(ratingArr);
+  //   console.log(ratingArr);
   return (
     <div className="reviews__card">
       <div className="reviews__avatar">

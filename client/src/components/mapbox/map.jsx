@@ -1,56 +1,29 @@
 import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
 import "./map.css";
-const Map = () => {
+const Map = ({ tour }) => {
+  console.log(tour.locations);
   useEffect(() => {
     mapboxgl.accessToken =
       "pk.eyJ1IjoicWlhbmppbmduaW5nIiwiYSI6ImNsbGIwb2J0ZDAyY24zcG1pdWxhbTZzcnoifQ.Zyhdn6IM9W7GlzD_EK15LA";
 
     const geojson = {
       type: "FeatureCollection",
-      features: [
-        {
+      features: tour.locations.map((location) => {
+        return {
           type: "Feature",
           geometry: {
-            type: "Point",
-            coordinates: [-112.987418, 37.198125],
+            type: location.type,
+            coordinates: location.coordinates,
           },
           properties: {
-            description: "Zion Canyon National Park",
+            description: location.description,
           },
-        },
-        {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [-111.376161, 36.86438],
-          },
-          properties: {
-            description: "Antelope Canyon",
-          },
-        },
-        {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [-112.115763, 36.058973],
-          },
-          properties: {
-            description: "Grand Canyon National Park",
-          },
-        },
-        {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [-116.107963, 34.011646],
-          },
-          properties: {
-            description: "Joshua Tree National Park",
-          },
-        },
-      ],
+        };
+      }),
     };
+    console.log(geojson);
+
     const map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/streets-v12",
@@ -59,6 +32,7 @@ const Map = () => {
     const bounds = new mapboxgl.LngLatBounds();
 
     geojson.features.forEach(function (marker) {
+      console.log(marker);
       var el = document.createElement("div");
       el.className = "marker";
 
@@ -99,12 +73,9 @@ const Map = () => {
             properties: {},
             geometry: {
               type: "LineString",
-              coordinates: [
-                [-112.987418, 37.198125],
-                [-111.376161, 36.86438],
-                [-112.115763, 36.058973],
-                [-116.107963, 34.011646],
-              ],
+              coordinates: tour.locations.map((location) => {
+                return location.coordinates;
+              }),
             },
           },
         },

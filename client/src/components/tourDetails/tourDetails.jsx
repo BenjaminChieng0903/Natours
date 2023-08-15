@@ -151,7 +151,7 @@ const TourDetails = () => {
         </div>
       </section>
       <section className="section-map">
-        <Map />
+        <Map tour={tour} />
       </section>
       <section className="section-reviews">
         <div className="reviews">
