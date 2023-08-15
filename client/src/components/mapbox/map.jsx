@@ -2,27 +2,27 @@ import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
 import "./map.css";
 const Map = ({ tour }) => {
-  console.log(tour.locations);
+  //   console.log(tour.locations);
   useEffect(() => {
     mapboxgl.accessToken =
       "pk.eyJ1IjoicWlhbmppbmduaW5nIiwiYSI6ImNsbGIwb2J0ZDAyY24zcG1pdWxhbTZzcnoifQ.Zyhdn6IM9W7GlzD_EK15LA";
 
-    const geojson = {
-      type: "FeatureCollection",
-      features: tour.locations.map((location) => {
-        return {
-          type: "Feature",
-          geometry: {
-            type: location.type,
-            coordinates: location.coordinates,
-          },
-          properties: {
-            description: location.description,
-          },
-        };
-      }),
-    };
-    console.log(geojson);
+    // const geojson = {
+    //   type: "FeatureCollection",
+    //   features: tour.locations.map((location) => {
+    //     return {
+    //       type: "Feature",
+    //       geometry: {
+    //         type: location.type,
+    //         coordinates: location.coordinates,
+    //       },
+    //       properties: {
+    //         description: location.description,
+    //       },
+    //     };
+    //   }),
+    // };
+    // console.log(geojson);
 
     const map = new mapboxgl.Map({
       container: "map",
@@ -31,8 +31,8 @@ const Map = ({ tour }) => {
     });
     const bounds = new mapboxgl.LngLatBounds();
 
-    geojson.features.forEach(function (marker) {
-      console.log(marker);
+    tour.locations.forEach(function (loc) {
+      //   console.log(loc);
       var el = document.createElement("div");
       el.className = "marker";
 
@@ -40,18 +40,18 @@ const Map = ({ tour }) => {
         element: el,
         anchor: "bottom",
       })
-        .setLngLat(marker.geometry.coordinates)
+        .setLngLat(loc.coordinates)
         .addTo(map);
 
       new mapboxgl.Popup({
         offset: 30,
         closeOnClick: false,
       })
-        .setLngLat(marker.geometry.coordinates)
-        .setHTML("<p>" + marker.properties.description + "</p>")
+        .setLngLat(loc.coordinates)
+        .setHTML("<p>" + "day " + loc.day + ":" + loc.description + "</p>")
         .addTo(map);
 
-      bounds.extend(marker.geometry.coordinates);
+      bounds.extend(loc.coordinates);
     });
 
     map.fitBounds(bounds, {
