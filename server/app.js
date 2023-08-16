@@ -7,6 +7,7 @@ const AppError = require('./utils/appError');
 const { globalErrorHandler } = require('./controllers/errorController');
 const cors = require('cors');
 const reviewsRouter = require('./routes/ReviewsRoutes');
+const bookingRouter = require('./routes/BookingRoutes');
 // Middleware
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
@@ -19,6 +20,7 @@ app.use(cors());
 app.use('/api/v1/tours', tourRouter); //the router is mounting on the url
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewsRouter);
+app.use('/api/v1/booking', bookingRouter);
 //Error handling on unhandled route
 app.all('*', (req, res, next) => {
   const err = new AppError(`cannot find this ${req.url} on the server`, 404);
