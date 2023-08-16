@@ -4,6 +4,8 @@ const { routeProtect } = require('../controllers/authController');
 
 const bookingRouter = express.Router();
 
-bookingRouter.route('/checkout-session/:id').get(createCheckoutSession);
+bookingRouter
+  .route('/checkout-session/:id')
+  .get(routeProtect, createCheckoutSession);
 
 module.exports = bookingRouter;

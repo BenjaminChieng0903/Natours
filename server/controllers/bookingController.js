@@ -5,26 +5,31 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const Tour = require('./../models/tourModels');
 exports.createCheckoutSession = catchAsync(async (req, res, next) => {
   const tourId = req.params.id;
-  console.log(tourId);
+  //   console.log(tourId);
   const searchedTour = await Tour.findById({ _id: tourId });
-  console.log(searchedTour);
-  console.log(req.protocol + '://' + req.get('User-Agent'));
+  //   console.log(searchedTour);
+  console.log(req.get('Referer'));
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
-    success_url: `${req.protocol}://${req.get('User-Agent')}/`,
-    cancel_url: `${req.protocol}://${req.get('User-Agent')}/`,
+    success_url: `${req.get('Referer')}`,
+    cancel_url: `${req.get('Referer')}details`,
     customer_email: req.currentUser.email,
     client_reference_id: tourId,
     line_items: [
       {
-        name: `${searchedTour.name} Tour`,
-        description: searchedTour.summary,
-        images: [``],
-        amount: searchedTour.price,
-        currency: 'usd',
+        price_data: {
+          unit_amount: searchedTour.price * 100,
+          currency: 'usd',
+          product_data: {
+            name: `${searchedTour.name} Tour`,
+            description: searchedTour.summary,
+            // images: [``],
+          },
+        },
         quantity: 1,
       },
     ],
+    mode: 'payment',
   });
   res.status(200).json({
     status: 'success',

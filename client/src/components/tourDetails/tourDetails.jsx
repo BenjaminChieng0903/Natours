@@ -2,19 +2,26 @@ import { useEffect } from "react";
 import "./../../assets/css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import Map from "./../mapbox/map";
+import AxiosApi from "./../../axiosApi/api";
 import {
   selectorCardIndex,
   selectorTours,
 } from "../store/tours/tours.selector";
 import { selectorReviews } from "../store/reviews/reviews.selector";
 import ReviewCard from "./reviewCard";
+import { selectorCurrentUser } from "../store/user/user.selector";
+import { useNavigate } from "react-router-dom";
+
+// import { Redirect } from "react-router-dom";
 // import { url } from "inspector";
 const TourDetails = () => {
   const cardIndex = useSelector(selectorCardIndex);
   const reviews = useSelector(selectorReviews);
   const tours = useSelector(selectorTours);
+  const currentUser = useSelector(selectorCurrentUser);
   const tour = tours.data[cardIndex];
-
+  const navigate = useNavigate();
+  console.log(tour._id);
   // console.log(tour);
   const convertDateFormat = () => {
     const dateObject = new Date(tour.startDates[0]);
@@ -22,6 +29,21 @@ const TourDetails = () => {
     const formattedDate = dateObject.toLocaleString("en-AU", options);
     console.log(formattedDate);
     return formattedDate;
+  };
+  const bookTour = async () => {
+    if (currentUser !== null) {
+      await AxiosApi.get(`/booking/checkout-session/${tour._id}`, {
+        headers: {
+          Authorization: `Bearer ${currentUser.token}`,
+        },
+      })
+        .then((res) => (window.location.href = `${res.data.session.url}`))
+        .catch((err) => console.log(err));
+    } else {
+      await AxiosApi.get(`/booking/checkout-session/${tour._id}`).catch((err) =>
+        console.log(err)
+      );
+    }
   };
   useEffect(() => {
     // const tour = tours[cardIndex];
@@ -172,7 +194,9 @@ const TourDetails = () => {
             <p class="cta__text">
               {`${tour.duration} days. ${tour.locations.length} adventure. Infinite memories. Make it yours today!`}
             </p>
-            <button class="btn btn--green span-all-rows">Book tour now!</button>
+            <button class="btn btn--green span-all-rows" onClick={bookTour}>
+              Book tour now!
+            </button>
           </div>
         </div>
       </section>
