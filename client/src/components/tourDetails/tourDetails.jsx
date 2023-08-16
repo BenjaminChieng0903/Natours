@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "./tourDetails.css";
+import "./../../assets/css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import Map from "./../mapbox/map";
 import {

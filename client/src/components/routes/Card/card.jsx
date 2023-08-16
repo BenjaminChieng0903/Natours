@@ -101,11 +101,11 @@ const Card = ({ categories, index }) => {
             //store the corresponding tour index so that can get its data and show its details on details page
             dispatch(setCurrentCardDetailsIndex(index));
             //search all the reviews that related to this tour and store them into Redux.
-
             await AxiosApi.get(`/reviews/${categories._id}`).then((res) => {
               console.log(res.data.data.reviews);
               dispatch(SetTourReviews(res.data.data.reviews));
             });
+            
             navigate("/details");
           }}
         >

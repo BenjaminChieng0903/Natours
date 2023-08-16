@@ -43,11 +43,7 @@ export const userReducer = (state = USER_INITIAL_STATE, action) => {
           token: payload,
         },
       };
-    case USER_ACTION_TYPE.SET_CURRENT_CARD_DETAILS_INDEX:
-      return {
-        ...state,
-        card_index: payload,
-      };
+
     default:
       return state;
   }
