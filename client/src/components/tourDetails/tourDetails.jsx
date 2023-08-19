@@ -37,11 +37,23 @@ const TourDetails = () => {
           Authorization: `Bearer ${currentUser.token}`,
         },
       })
-        .then((res) => (window.location.href = `${res.data.session.url}`))
+        .then(async (res) => {
+          //navigate to checkout page
+          window.location.href = `${res.data.session.url}`;
+          //store booking infomation into db
+          await AxiosApi.post(`/booking/checkout-session/${tour._id}`, {
+            // tour: tour._id,
+            user: currentUser._id,
+            price: tour.price,
+          }).then((res) => console.log(res));
+        })
         .catch((err) => console.log(err));
     } else {
-      await AxiosApi.get(`/booking/checkout-session/${tour._id}`).catch((err) =>
-        console.log(err)
+      await AxiosApi.get(`/booking/checkout-session/${tour._id}`).catch(
+        (err) => {
+          console.log(err);
+          alert(err.response.data.message);
+        }
       );
     }
   };

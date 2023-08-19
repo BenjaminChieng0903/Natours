@@ -64,9 +64,7 @@ exports.routeProtect = catchAsync(async (req, res, next) => {
   // check if the token exist
   const token = req.headers.authorization;
   if (!token) {
-    return next(
-      new AppError('it is a protected route, please log in first', 401)
-    );
+    return next(new AppError('please log in first', 401));
   }
   const userToken = token.split(' ')[1];
   // vertification of token

@@ -89,6 +89,9 @@ const AccountDetails = () => {
       //   name ? dispatch(updateCurrentUser(name)) : setName(undefined);
     }
   };
+  const myBooking = async () => {
+    await AxiosApi.post("/account/mybooking", {});
+  };
   useEffect(() => {
     if (errMessage != null) {
       alert(errMessage);
@@ -144,7 +147,7 @@ const AccountDetails = () => {
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a onClick={myBooking}>
                       <svg>
                         <use href="img/icons.svg#icon-briefcase"></use>
                       </svg>

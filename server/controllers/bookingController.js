@@ -31,8 +31,18 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
     ],
     mode: 'payment',
   });
+
   res.status(200).json({
     status: 'success',
     session,
+  });
+});
+exports.createBooking = catchAsync(async (req, res, next) => {
+  console.log(req.params);
+  const booking = await Booking.create({ ...req.body, tour: req.params.id });
+
+  res.status(200).json({
+    status: 'success',
+    data: booking,
   });
 });
