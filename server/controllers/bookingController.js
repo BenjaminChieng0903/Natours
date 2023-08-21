@@ -5,13 +5,19 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const Tour = require('./../models/tourModels');
 exports.createCheckoutSession = catchAsync(async (req, res, next) => {
   const tourId = req.params.id;
-  //   console.log(tourId);
+  console.log(tourId);
   const searchedTour = await Tour.findById({ _id: tourId });
   //   console.log(searchedTour);
   console.log(req.get('Referer'));
+  // console.log(req.get('host'));
+  // const requestUrl = req.get('Referer');
+  // const trimedUrl = requestUrl.substring(0, requestUrl.length - 1);
+  // console.log(trimedUrl);
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
-    success_url: `${req.get('Referer')}`,
+    success_url: `${req.get('origin')}?tour=${tourId}&user=${
+      req.currentUser.id
+    }&price=${searchedTour.price}`,
     cancel_url: `${req.get('Referer')}details`,
     customer_email: req.currentUser.email,
     client_reference_id: tourId,
@@ -38,11 +44,14 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
   });
 });
 exports.createBooking = catchAsync(async (req, res, next) => {
-  console.log(req.params);
-  const booking = await Booking.create({ ...req.body, tour: req.params.id });
+  const { tour, user, price } = req.query;
+  // console.log(req.originalUrl);
+  // console.log(tour, user, price);
+  // console.log(req.query);
+  if (!tour && !user & !price) return next();
+  else await Booking.create(req.query);
 
   res.status(200).json({
     status: 'success',
-    data: booking,
   });
 });

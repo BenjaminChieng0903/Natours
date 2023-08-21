@@ -14,7 +14,9 @@ const {
   restrictedRole,
 } = require('./../controllers/authController');
 
-tourRouter.route('/').get(getAlltours).post(createNewTour);
+const { createBooking } = require('./../controllers/bookingController');
+
+tourRouter.route('/').get(createBooking, getAlltours).post(createNewTour);
 tourRouter.route('/get-tour-stats').get(getTourStats);
 tourRouter.route('/businessMonth').get(CaculatebusinessMonth);
 tourRouter
