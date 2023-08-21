@@ -55,3 +55,15 @@ exports.createBooking = catchAsync(async (req, res, next) => {
     status: 'success',
   });
 });
+
+exports.getMyBooking = catchAsync(async (req, res, next) => {
+  console.log(req.params.id);
+  const bookingList = await Booking.find({ user: req.params.id });
+  console.log(bookingList);
+
+  res.status(200).json({
+    status: 'success',
+    result: bookingList.length,
+    data: bookingList,
+  });
+});

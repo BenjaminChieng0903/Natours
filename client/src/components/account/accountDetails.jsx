@@ -8,11 +8,13 @@ import {
   updateCurrentUser,
   updateCurrentUserToken,
 } from "../store/user/user.action";
+import { Link, useNavigate } from "react-router-dom";
 
 const AccountDetails = () => {
   const currentUser = useSelector(selectorCurrentUser);
   //   currentUser ? console.log() : navigate("/errorPage");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   //   const photoUrl = `/img/users/${currentUser.photo}`;
 
   const [errMessage, setErrMessage] = useState(null);
@@ -89,9 +91,6 @@ const AccountDetails = () => {
       //   name ? dispatch(updateCurrentUser(name)) : setName(undefined);
     }
   };
-  const myBooking = async () => {
-    await AxiosApi.post("/account/mybooking", {});
-  };
   useEffect(() => {
     if (errMessage != null) {
       alert(errMessage);
@@ -147,12 +146,12 @@ const AccountDetails = () => {
                     </a>
                   </li>
                   <li>
-                    <a onClick={myBooking}>
+                    <Link to="../mybooking">
                       <svg>
                         <use href="img/icons.svg#icon-briefcase"></use>
                       </svg>
                       My bookings
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="#">

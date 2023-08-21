@@ -29,7 +29,7 @@ const Card = ({ categories, index }) => {
     locations,
   } = categories;
   const navigate = useNavigate();
-  const imageUrl = `img/tours/${imageCover}`;
+  const imageUrl = `/img/tours/${imageCover}`;
   //   console.log(typeof startDates[0]);
   //   console.log(isDate(startDates[0]));
   const firstDateArr = startDates[0].slice(0, 7).split("-");
@@ -62,25 +62,25 @@ const Card = ({ categories, index }) => {
         <p className="card__text">{summary}</p>
         <div className="card__data">
           <svg className="card__icon">
-            <use href="img/icons.svg#icon-map-pin"></use>
+            <use href="/img/icons.svg#icon-map-pin"></use>
           </svg>
           <span>{startLocation.description}</span>
         </div>
         <div className="card__data">
           <svg className="card__icon">
-            <use href="img/icons.svg#icon-calendar"></use>
+            <use href="/img/icons.svg#icon-calendar"></use>
           </svg>
           <span> {firstDate}</span>
         </div>
         <div className="card__data">
           <svg className="card__icon">
-            <use href="img/icons.svg#icon-flag"></use>
+            <use href="/img/icons.svg#icon-flag"></use>
           </svg>
           <span>{locations.length} stops</span>
         </div>
         <div className="card__data">
           <svg className="card__icon">
-            <use href="img/icons.svg#icon-user"></use>
+            <use href="/img/icons.svg#icon-user"></use>
           </svg>
           <span>{maxGroupSize} people</span>
         </div>
@@ -105,7 +105,7 @@ const Card = ({ categories, index }) => {
               console.log(res.data.data.reviews);
               dispatch(SetTourReviews(res.data.data.reviews));
             });
-            
+
             navigate("/details");
           }}
         >
