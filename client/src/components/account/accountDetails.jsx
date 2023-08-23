@@ -42,16 +42,24 @@ const AccountDetails = () => {
       await AxiosApi.post(`https://api.imgbb.com/1/upload`, updateData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${currentUser.token}`,
+          // Authorization: `Bearer ${currentUser.token}`,
         },
       }).then(
         //change photo value in db
         async (res) => {
-          await AxiosApi.patch("/users/account/updateMe", {
-            id: currentUser._id,
-            photo: res.data.data.image.url,
-            name,
-          }).then((res) => {
+          await AxiosApi.patch(
+            "/users/account/updateMe",
+            {
+              id: currentUser._id,
+              photo: res.data.data.image.url,
+              name,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${currentUser.token}`,
+              },
+            }
+          ).then((res) => {
             console.log(res);
             alert("update successfully ");
           });

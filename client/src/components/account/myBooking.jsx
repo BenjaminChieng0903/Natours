@@ -8,14 +8,14 @@ import { selectorCurrentUser } from "../store/user/user.selector";
 
 const MyBooking = () => {
   const currentUser = useSelector(selectorCurrentUser);
-  const [categories, setCategories] = useState(null);
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
     const myBooking = async () => {
       await AxiosApi.get(`/booking/mybooking/${currentUser._id}`).then(
         (res) => {
-          console.log(res.data.data);
+          //   console.log(res.data.data);
           const tourList = res.data.data.map((item) => item.tour);
-          console.log(tourList);
+          //   console.log(tourList);
           setCategories(tourList);
         }
       );
@@ -27,7 +27,7 @@ const MyBooking = () => {
     <main className="main">
       {/* <h1>this is my booking page</h1> */}
       <div className="card-container">
-        {categories == null ? (
+        {categories.length === 0 ? (
           <h1>No Booking</h1>
         ) : (
           categories.map((item, index) => (

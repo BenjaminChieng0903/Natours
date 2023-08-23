@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./../../assets/css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import Map from "./../mapbox/map";
@@ -15,13 +15,14 @@ import { useNavigate } from "react-router-dom";
 // import { Redirect } from "react-router-dom";
 // import { url } from "inspector";
 const TourDetails = () => {
+  const [displayedReviews, setDisplayedReviews] = useState(5);
   const cardIndex = useSelector(selectorCardIndex);
   const reviews = useSelector(selectorReviews);
   const tours = useSelector(selectorTours);
   const currentUser = useSelector(selectorCurrentUser);
   const tour = tours.data[cardIndex];
-  const navigate = useNavigate();
   console.log(tour._id);
+  const displayedreviewsArr = reviews.slice(0, displayedReviews);
   // console.log(tour);
   const convertDateFormat = () => {
     const dateObject = new Date(tour.startDates[0]);
@@ -186,9 +187,19 @@ const TourDetails = () => {
       </section>
       <section className="section-reviews">
         <div className="reviews">
-          {reviews.map((review) => {
+          {displayedreviewsArr.map((review) => {
             return <ReviewCard review={review} />;
           })}
+          {reviews.length > displayedReviews ? (
+            <button
+              className="load-more-button"
+              onClick={() => setDisplayedReviews(displayedReviews + 5)}
+            >
+              Load More
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
       </section>
       <section class="section-cta">
