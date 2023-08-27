@@ -7,6 +7,7 @@ import AxiosApi from "./../../../axiosApi/api";
 import { selectorTours } from "../../store/tours/tours.selector";
 import { SetTourReviews } from "../../store/reviews/reviews.action";
 import { selectorBookings } from "../../store/booking/booking.selector";
+import { SetMyBookingReview } from "../../store/booking/booking.action";
 const Card = ({ categories, index }) => {
   // console.log(categories);
   console.log(index);
@@ -119,7 +120,10 @@ const Card = ({ categories, index }) => {
           <button
             className="btn btn--white btn--small"
             style={{ color: "green", border: "1px solid green" }}
-            onClick={() => navigate("../customerReview")}
+            onClick={() => {
+              dispatch(SetMyBookingReview(myBooking[index]));
+              navigate("../customerReview");
+            }}
           >
             Review
           </button>

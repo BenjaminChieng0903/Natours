@@ -10,6 +10,8 @@ export const bookingReducer = (state = BOOKING_INITIAL_STATE, action = {}) => {
   switch (type) {
     case BOOKING_ACTION_TYPE.SET_MY_BOOKING:
       return { ...state, booking: payload };
+    case BOOKING_ACTION_TYPE.BOOKING_REVIEW:
+      return { ...state, review: payload };
     default:
       return state;
   }
