@@ -6,6 +6,7 @@ import { setCurrentCardDetailsIndex } from "../../store/tours/tours.action";
 import AxiosApi from "./../../../axiosApi/api";
 import { selectorTours } from "../../store/tours/tours.selector";
 import { SetTourReviews } from "../../store/reviews/reviews.action";
+import { selectorBookings } from "../../store/booking/booking.selector";
 const Card = ({ categories, index }) => {
   // console.log(categories);
   console.log(index);
@@ -14,6 +15,7 @@ const Card = ({ categories, index }) => {
   // const tour = categories[index];
   // console.log(tour);
   const dispatch = useDispatch();
+  const myBooking = useSelector(selectorBookings);
   const {
     difficulty,
     duration,
@@ -111,6 +113,17 @@ const Card = ({ categories, index }) => {
         >
           Details
         </button>
+        {myBooking == null ? (
+          <></>
+        ) : (
+          <button
+            className="btn btn--white btn--small"
+            style={{ color: "green", border: "1px solid green" }}
+            onClick={() => navigate("../customerReview")}
+          >
+            Review
+          </button>
+        )}
       </div>
     </div>
   );

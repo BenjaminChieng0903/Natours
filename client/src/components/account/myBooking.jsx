@@ -3,11 +3,13 @@ import "./../routes/home/home.scss";
 import Card from "./../routes/Card/card";
 import { useEffect, useState } from "react";
 import AxiosApi from "./../../axiosApi/api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectorCurrentUser } from "../store/user/user.selector";
+import { SetMyBooking } from "../store/booking/booking.action";
 
 const MyBooking = () => {
   const currentUser = useSelector(selectorCurrentUser);
+  const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const myBooking = async () => {
@@ -17,6 +19,7 @@ const MyBooking = () => {
           const tourList = res.data.data.map((item) => item.tour);
           //   console.log(tourList);
           setCategories(tourList);
+          dispatch(SetMyBooking(tourList));
         }
       );
       //   console.log(bookingList);

@@ -29,7 +29,9 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
           product_data: {
             name: `${searchedTour.name} Tour`,
             description: searchedTour.summary,
-            // images: [``],
+            // images: [
+            //   `http://localhost:3000/public/img/tours/${searchedTour.imageCover}`,
+            // ],
           },
         },
         quantity: 1,

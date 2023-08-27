@@ -201,6 +201,7 @@ const TourDetails = () => {
             <></>
           )}
         </div>
+        
       </section>
       <section class="section-cta">
         <div class="cta">

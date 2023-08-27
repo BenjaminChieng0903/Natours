@@ -154,7 +154,7 @@ const AccountDetails = () => {
                     </a>
                   </li>
                   <li>
-                    <Link to="../mybooking">
+                    <Link to="../users/mybooking">
                       <svg>
                         <use href="img/icons.svg#icon-briefcase"></use>
                       </svg>

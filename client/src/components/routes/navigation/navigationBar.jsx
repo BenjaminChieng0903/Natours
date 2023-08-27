@@ -61,16 +61,13 @@ const NavigationBar = () => {
           </a> */}
           {!currentUser ? (
             <>
-              <button
-                className="nav__el"
-                onClick={() => navigate("users/login")}
-              >
+              <button className="nav__el" onClick={() => navigate("login")}>
                 Log in
               </button>
 
               <button
                 className="nav__el nav__el--cta"
-                onClick={() => navigate("users/signup")}
+                onClick={() => navigate("signup")}
               >
                 Sign up
               </button>
@@ -82,7 +79,7 @@ const NavigationBar = () => {
               </button>
               <a
                 onClick={() => {
-                  navigate("/users/account");
+                  navigate("account");
                 }}
                 class="nav__el"
               >

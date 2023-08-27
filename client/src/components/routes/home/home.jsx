@@ -10,6 +10,7 @@ import {
 import { removeCardDetailsIndex } from "../../store/tours/tours.action";
 import { SetTourReviews } from "../../store/reviews/reviews.action";
 import { useNavigate } from "react-router-dom";
+import { SetMyBooking } from "../../store/booking/booking.action";
 
 // import "./../../css/styles.css";
 // get all tour data from server
@@ -52,6 +53,8 @@ const Home = () => {
     dispatch(setCurrentCardDetailsIndex(null));
     //remove corresponding tour's reviews
     dispatch(SetTourReviews(null));
+    //remove corresponding booking info in Redux
+    dispatch(SetMyBooking(null));
   }, [querySize]);
   return (
     <main className="main">

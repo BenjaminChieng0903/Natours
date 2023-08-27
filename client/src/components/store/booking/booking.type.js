@@ -1,0 +1,3 @@
+export const BOOKING_ACTION_TYPE = {
+  SET_MY_BOOKING: "SET_MY_BOOKING",
+};
