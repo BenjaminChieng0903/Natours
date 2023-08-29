@@ -495,6 +495,7 @@ body {
 }
 .overview-box__text {
   text-transform: capitalize;
+  font-weight: bold;
 }
 .overview-box__img {
   border-radius: 50%;
