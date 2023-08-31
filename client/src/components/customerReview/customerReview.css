@@ -71,7 +71,11 @@
 .customer-review-section {
   flex: 1;
   width: 100%;
-  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  /* background-color: aqua; */
+  /* text-align: center; */
+  /* align-items: center; */
 }
 .description-box .description {
   margin-right: 5rem;
@@ -85,4 +89,41 @@
 .title-container {
   align-content: center;
   padding-top: 20px;
+}
+textarea {
+  width: 90%;
+  padding: 20px;
+  /* margin-bottom: 5rem; */
+  font-size: 16px;
+  /* word-spacing: 4cm; */
+  line-height: 0.5cm;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+
+/* Styling when the textarea is focused */
+textarea:focus {
+  border-color: #08a303; /* Change the border color when focused */
+  box-shadow: 0 0 5px #08a303; /* Add a subtle shadow */
+}
+
+/* Optional: Add a transition for smoother effects */
+textarea {
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.rating-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+.rating {
+  width: 70%;
+  height: 20px;
+  align-self: center;
+  /* align-self: center; */
+}
+.submitButton {
+  margin: 2rem 2rem 2rem 40rem;
 }

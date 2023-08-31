@@ -1,8 +1,25 @@
 import { useSelector } from "react-redux";
 import "./customerReview.css";
 import { selectorBookingsReview } from "../store/booking/booking.selector";
-
+import Rating from "@mui/material/Rating";
+import Box from "@mui/material/Box";
+import StarIcon from "@mui/icons-material/Star";
+import { useState } from "react";
 const CustomerReview = () => {
+  const labels = {
+    0.5: "Very Useless",
+    1: "Useless",
+    1.5: " Very Poor",
+    2: "Poor",
+    2.5: "Ok",
+    3: "Very Ok",
+    3.5: "Good",
+    4: "Very Good",
+    4.5: "Excellent",
+    5: "Very Excellent",
+  };
+  const [value, setValue] = useState(2);
+  const [hover, setHover] = useState(-1);
   const tour = useSelector(selectorBookingsReview);
   const imageUrl = `/img/tours/${tour.imageCover}`;
   const convertDateFormat = () => {
@@ -17,6 +34,9 @@ const CustomerReview = () => {
     console.log(formattedDate);
     return formattedDate;
   };
+  function getLabelText(value) {
+    return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
+  }
   return (
     <main className="main">
       <div className="customer-review">
@@ -111,7 +131,48 @@ const CustomerReview = () => {
               })}
             </div>
           </div>
-          <div className="customer-review-section">hi, reviewSection</div>
+          <div className="customer-review-section">
+            <h2 className="heading-secondary ma-bt-lg">Your Review</h2>
+            <textarea rows="15" cols="50"></textarea>
+            <div className="rating-section">
+              <h2 className="heading-secondary ma-bt-lg">Your Rating</h2>
+              <Rating
+                // className="rating"
+                style={{
+                  fontSize: "40px",
+                  alignItems: "center",
+                }}
+                value={value}
+                precision={0.5}
+                getLabelText={getLabelText}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+                onChangeActive={(event, newHover) => {
+                  setHover(newHover);
+                }}
+                emptyIcon={
+                  <StarIcon
+                    style={{ opacity: 0.55, fontSize: "40px" }}
+                    // fontSize="inherit"
+                  />
+                }
+              />
+              {value !== null && (
+                <Box sx={{ ml: 2, fontSize: "20px", marginLeft: "5rem" }}>
+                  {labels[hover !== -1 ? hover : value]}
+                </Box>
+              )}
+            </div>
+            <div className="submitButton">
+              <button
+                className="btn btn--green btn--small"
+                onClick={() => console.log("click me")}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </main>
