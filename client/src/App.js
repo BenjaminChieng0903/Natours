@@ -8,6 +8,7 @@ import TourDetails from "./components/tourDetails/tourDetails";
 import AccountDetails from "./components/account/accountDetails";
 import MyBooking from "./components/account/myBooking";
 import CustomerReview from "./components/customerReview/customerReview";
+import MyReivew from "./components/account/myReview";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="users">
           <Route path="mybooking" element={<MyBooking />} />
           <Route path="customerReview" element={<CustomerReview />} />
+          <Route path="myReview" element={<MyReivew />}></Route>
         </Route>
         {/* <Route path="errorPage" element={<ErrorPage />}></Route> */}
         {/* <Route path="/users/signup" element={<Signup />}></Route>

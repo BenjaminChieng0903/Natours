@@ -162,7 +162,7 @@ const AccountDetails = () => {
                     </Link>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="../users/myReview">
                       <svg>
                         <use href="img/icons.svg#icon-star"></use>
                       </svg>

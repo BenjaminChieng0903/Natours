@@ -5,7 +5,10 @@ import { useEffect, useState } from "react";
 import AxiosApi from "./../../axiosApi/api";
 import { useDispatch, useSelector } from "react-redux";
 import { selectorCurrentUser } from "../store/user/user.selector";
-import { SetMyBooking } from "../store/booking/booking.action";
+import {
+  SetMyBooking,
+  SetMyBookingReview,
+} from "../store/booking/booking.action";
 
 const MyBooking = () => {
   const currentUser = useSelector(selectorCurrentUser);
@@ -20,6 +23,7 @@ const MyBooking = () => {
           //   console.log(tourList);
           setCategories(tourList);
           dispatch(SetMyBooking(tourList));
+          dispatch(SetMyBookingReview(null));
         }
       );
       //   console.log(bookingList);

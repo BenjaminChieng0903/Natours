@@ -11,16 +11,11 @@ import { useNavigate } from "react-router-dom";
 
 const CustomerReview = () => {
   const labels = {
-    0.5: "Very Useless",
     1: "Useless",
-    1.5: " Very Poor",
     2: "Poor",
-    2.5: "Ok",
-    3: "Very Ok",
-    3.5: "Good",
-    4: "Very Good",
-    4.5: "Excellent",
-    5: "Very Excellent",
+    3: "OK",
+    4: "Good",
+    5: "Excellent",
   };
   const [value, setValue] = useState(2);
   const [hover, setHover] = useState(-1);
@@ -156,7 +151,7 @@ const CustomerReview = () => {
                   alignItems: "center",
                 }}
                 value={value}
-                precision={0.5}
+                precision={1}
                 getLabelText={getLabelText}
                 onChange={(event, newValue) => {
                   setValue(newValue);
@@ -172,7 +167,7 @@ const CustomerReview = () => {
                 }
               />
               {value !== null && (
-                <Box sx={{ ml: 2, fontSize: "20px", marginLeft: "5rem" }}>
+                <Box sx={{ ml: 2, fontSize: "20px", marginLeft: "8rem" }}>
                   {labels[hover !== -1 ? hover : value]}
                 </Box>
               )}
