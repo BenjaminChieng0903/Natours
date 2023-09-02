@@ -13,14 +13,25 @@ const ReviewCard = ({ review }) => {
   //   console.log(ratingArr);
   return (
     <div className="reviews__card">
-      <div className="reviews__avatar">
-        <img
-          src={`img/users/${review.user.photo}`}
-          alt={review.user.name}
-          className="reviews__avatar-img"
-        />
-        <h6 className="reviews__user">{review.user.name}</h6>
-      </div>
+      {review.user.photo.startsWith("https") ? (
+        <div className="reviews__avatar">
+          <img
+            src={`${review.user.photo}`}
+            alt={review.user.name}
+            className="reviews__avatar-img"
+          />
+          <h6 className="reviews__user">{review.user.name}</h6>
+        </div>
+      ) : (
+        <div className="reviews__avatar">
+          <img
+            src={`img/users/${review.user.photo}`}
+            alt={review.user.name}
+            className="reviews__avatar-img"
+          />
+          <h6 className="reviews__user">{review.user.name}</h6>
+        </div>
+      )}
       <p className="reviews__text">{review.review}</p>
       <div className="reviews__rating">{ratingArr.map((item) => item)}</div>
     </div>

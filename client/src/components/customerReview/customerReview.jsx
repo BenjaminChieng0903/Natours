@@ -5,6 +5,10 @@ import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
 import { useState } from "react";
+import { selectorCurrentUser } from "../store/user/user.selector";
+import AxiosApi from "../../axiosApi/api";
+import { useNavigate } from "react-router-dom";
+
 const CustomerReview = () => {
   const labels = {
     0.5: "Very Useless",
@@ -21,6 +25,9 @@ const CustomerReview = () => {
   const [value, setValue] = useState(2);
   const [hover, setHover] = useState(-1);
   const tour = useSelector(selectorBookingsReview);
+  const currentUser = useSelector(selectorCurrentUser);
+  const [text, setText] = useState(null);
+  const navigate = useNavigate();
   const imageUrl = `/img/tours/${tour.imageCover}`;
   const convertDateFormat = () => {
     const dateObject = new Date(tour.startDates[0]);
@@ -31,7 +38,7 @@ const CustomerReview = () => {
       timeZone: "UTC",
     };
     const formattedDate = dateObject.toLocaleString("en-AU", options);
-    console.log(formattedDate);
+    // console.log(formattedDate);
     return formattedDate;
   };
   function getLabelText(value) {
@@ -133,7 +140,13 @@ const CustomerReview = () => {
           </div>
           <div className="customer-review-section">
             <h2 className="heading-secondary ma-bt-lg">Your Review</h2>
-            <textarea rows="15" cols="50"></textarea>
+            <textarea
+              rows="15"
+              cols="50"
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
+            ></textarea>
             <div className="rating-section">
               <h2 className="heading-secondary ma-bt-lg">Your Rating</h2>
               <Rating
@@ -167,7 +180,18 @@ const CustomerReview = () => {
             <div className="submitButton">
               <button
                 className="btn btn--green btn--small"
-                onClick={() => console.log("click me")}
+                onClick={async () => {
+                  await AxiosApi.post("/reviews", {
+                    review: text,
+                    rating: value,
+                    user: currentUser._id,
+                    tour: tour._id,
+                  }).then((res) => {
+                    console.log(res);
+                    alert("review successfully!");
+                    navigate("../mybooking");
+                  });
+                }}
               >
                 Submit
               </button>
