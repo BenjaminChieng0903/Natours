@@ -148,7 +148,7 @@ const AccountDetails = () => {
                   <li className="side-nav--active">
                     <a href="#">
                       <svg>
-                        <use href="img/icons.svg#icon-settings"></use>
+                        <use href="/img/icons.svg#icon-settings"></use>
                       </svg>
                       Settings
                     </a>
@@ -156,7 +156,7 @@ const AccountDetails = () => {
                   <li>
                     <Link to="../users/mybooking">
                       <svg>
-                        <use href="img/icons.svg#icon-briefcase"></use>
+                        <use href="/img/icons.svg#icon-briefcase"></use>
                       </svg>
                       My bookings
                     </Link>
@@ -164,7 +164,7 @@ const AccountDetails = () => {
                   <li>
                     <a href="../users/myReview">
                       <svg>
-                        <use href="img/icons.svg#icon-star"></use>
+                        <use href="/img/icons.svg#icon-star"></use>
                       </svg>
                       My reviews
                     </a>
@@ -172,7 +172,7 @@ const AccountDetails = () => {
                   <li>
                     <a href="#">
                       <svg>
-                        <use href="img/icons.svg#icon-credit-card"></use>
+                        <use href="/img/icons.svg#icon-credit-card"></use>
                       </svg>
                       Billing
                     </a>

@@ -49,7 +49,7 @@ const NavigationBar = () => {
           </form>
         // </nav> */}
         <div className="header__logo">
-          <img src="img/logo-white.png" alt="Natours logo" />
+          <img src="/img/logo-white.png" alt="Natours logo" />
         </div>
         <div className="navigtion nav--user">
           {/* <a href="#" className="nav__el">
@@ -81,9 +81,9 @@ const NavigationBar = () => {
                 onClick={() => {
                   navigate("account");
                 }}
-                class="nav__el"
+                className="nav__el"
               >
-                <img src={photoUrl} alt={name} class="nav__user-img" />
+                <img src={photoUrl} alt={name} className="nav__user-img" />
                 <span>{name}</span>
               </a>
             </>
