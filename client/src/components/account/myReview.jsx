@@ -53,7 +53,7 @@ const MyReivew = () => {
             <h1>No review</h1>
           )}
         </Stack> */}
-        {reviews ? (
+        {reviews != null ? (
           reviews.map((review) => {
             const dateObject = new Date(review.createdAt);
             const options = {
@@ -87,68 +87,50 @@ const MyReivew = () => {
                       />
                     </ButtonBase>
                   </Grid>
-                  <Grid item xs={20} sm container spacing={12}>
-                    <Grid
+                  <Grid item xs={30} sm container spacing={12}>
+                    {/* <Grid
                       item
                       xs
                       container
                       //   mt={1}
                       direction="column"
                       //   spacing={5}
-                    >
-                      <Grid item xs>
-                        <Typography
-                          gutterBottom
-                          variant="subtitle1"
-                          component="div"
-                          fontSize="20px"
-                          fontWeight="bold"
-                        >
-                          Tour information
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          fontSize="15px"
-                          gutterBottom
-                        >
-                          Tour Name: {review.tour.name}
-                        </Typography>
-                        {/* <Typography variant="body2" color="text.secondary">
+                    > */}
+                    <Grid item xs width="30rem">
+                      <Typography
+                        gutterBottom
+                        variant="subtitle1"
+                        component="div"
+                        fontSize="20px"
+                        fontWeight="bold"
+                      >
+                        Tour information
+                      </Typography>
+                      <Typography variant="body2" fontSize="15px" gutterBottom>
+                        Tour Name: {review.tour.name}
+                      </Typography>
+                      {/* <Typography variant="body2" color="text.secondary">
                           ID: 1030114
                         </Typography> */}
-                        <Typography
-                          mt={5}
-                          gutterBottom
-                          variant="subtitle1"
-                          component="div"
-                          fontSize="20px"
-                          fontWeight="bold"
-                        >
-                          User information
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          fontSize="15px"
-                          gutterBottom
-                        >
-                          Email: {review.user.email}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          fontSize="15px"
-                          gutterBottom
-                        >
-                          User Name: {review.user.name}
-                        </Typography>
-                      </Grid>
-
-                      {/* <Grid item>
-                        <Typography sx={{ cursor: "pointer" }} variant="body2">
-                          Remove
-                        </Typography>
-                      </Grid> */}
+                      <Typography
+                        mt={5}
+                        gutterBottom
+                        variant="subtitle1"
+                        component="div"
+                        fontSize="20px"
+                        fontWeight="bold"
+                      >
+                        User information
+                      </Typography>
+                      <Typography variant="body2" fontSize="15px" gutterBottom>
+                        Email: {review.user.email}
+                      </Typography>
+                      <Typography variant="body2" fontSize="15px" gutterBottom>
+                        User Name: {review.user.name}
+                      </Typography>
+                      {/* </Grid> */}
                     </Grid>
-                    <Grid item>
+                    <Grid item width="30rem">
                       <Typography
                         gutterBottom
                         variant="subtitle1"
