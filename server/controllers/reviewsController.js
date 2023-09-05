@@ -24,10 +24,23 @@ exports.createReview = catchAsync(async (req, res, next) => {
     },
   });
 });
-exports.getSomeReviews = catchAsync(async (req, res, next) => {
+exports.getTourReviews = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   console.log(id);
   const reviews = await Views.find({ tour: id });
+  res.status(200).json({
+    status: 'success',
+    length: reviews.length,
+    data: {
+      reviews,
+    },
+  });
+});
+
+exports.getUserReviews = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+  const reviews = await Views.find({ user: id });
   res.status(200).json({
     status: 'success',
     length: reviews.length,
