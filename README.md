@@ -122,5 +122,31 @@ project-root/
 ```
 ## Installation
 
+### Project
+1. Clone this project in your local environment via http link or ssh
+   
+2. Open cloned project with code editor (vsCode for example)
+
+3. Create two terminals in the code editor and enter client/ and server/ directory in each terminal respectively
+
+4. Paste the command below into two terminals 
+```
+npm install
+```
+### Database
+1. Go to MongoDB Atlas website to create a new cloud cluster for this project
+
+2. Go to project directory ``server/dev-data`` and copy all json file to cluster to generate database schema
+
+3. Download MongoDB visulization tool Compass
+
+4. Click 'connect' button on Atlas cloud cluster and choose 'connect with compass'
+
+5. Paste cloud server url to compass connection page
+
+6. Replace <password> to the real password displayed to you when you create Altas cloud server
+
 ## Usage
+
+Once installation is finished, use command ```npm start``` in each terminal to start the project.
 
